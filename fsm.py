@@ -13,3 +13,7 @@ class Form_moder(StatesGroup):
 class Form_send_mes(StatesGroup):
     id = State()
     mes = State()
+class Form_id_add(StatesGroup):
+    id = State()
+class Form_id_delete(StatesGroup):
+    id = State()

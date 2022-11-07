@@ -64,20 +64,62 @@ async def Админ_панель(callback_query: types.CallbackQuery):
         code = int(code)
 
     if code == 1:
-        await Form_name.id.set()
-        await dp.send_message(callback_query.from_user.id,'Напишите id пользователя.')
+        await Form_id_add.id.set()
     if code == 2:
-        pass
+        await Form_id_delete.id.set()
     if code == 3:
-        pass
+        await Form_send_mes.id.set()
+    await dp.send_message(callback_query.from_user.id,'Напишите id пользователя.')
     
-@bot.message_handler(state=Form_send_mes.id)
-async def Регистрация(message: types.Message, state: FSMContext):
+@bot.message_handler(state=Form_id_add.id)
+async def Добавление_нового_пользователя(message: types.Message, state: FSMContext):
+
+    global ids_users
+
     async with state.proxy() as data:
-        data['name'] = message.text
-        send_data(message.from_user.id, 'name', remove_char(md.bold(data['name'])))
+        data['id'] = message.text
+        ids_users.append(data['id'])
+        await dp.send_message(message.from_user.id, "Ок.")
     await state.finish()
-    await dp.send_message(message.from_user.id, "Спасибки)")
+
+@bot.message_handler(state=Form_id_delete.id)
+async def Удаление_пользователя(message: types.Message, state: FSMContext):
+
+    global ids_users
+
+    async with state.proxy() as data:
+        data['id'] = message.text
+        try:
+            ids_users.remove(data['id'])
+            await dp.send_message(message.from_user.id, "Ок.")
+        except:
+            await dp.send_message(message.from_user.id, "Что-то пошло не так.")
+    await state.finish()
+
+@bot.message_handler(state=Form_send_mes.id)
+async def Отправка_сообщения1(message: types.Message, state: FSMContext):
+
+    global id
+
+    async with state.proxy() as data:
+        data['id'] = message.text
+
+        id = data['id']
+        await Form_send_mes.mes.set()
+        await dp.send_message(message.from_user.id, "Теперь напиши сообщение.")
+
+@bot.message_handler(state=Form_send_mes.mes)
+async def Отправка_сообщения2(message: types.Message, state: FSMContext):
+
+    global id
+
+    async with state.proxy() as data:
+        data['mes'] = message.text
+        try:
+            await dp.send_message(id, data['mes'])
+        except:
+            await dp.send_message(message.from_user.id, "Ошибка. Проверьте id и сообщение.")
+    await state.finish()
 
 @bot.message_handler(state=Form_name.name)
 async def Регистрация(message: types.Message, state: FSMContext):
