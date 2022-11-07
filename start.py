@@ -116,7 +116,7 @@ async def Отправка_сообщения2(message: types.Message, state: FS
     async with state.proxy() as data:
         data['mes'] = message.text
         try:
-            await dp.send_message(id, data['mes'])
+            await dp.send_message(id, 'Новое сообщение\n<i>' + data['mes'] + '</i> - от Админа')
         except:
             await dp.send_message(message.from_user.id, "Ошибка. Проверьте id и сообщение.")
     await state.finish()
