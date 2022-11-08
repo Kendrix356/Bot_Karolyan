@@ -75,7 +75,7 @@ words_russian = ['Яблоко', #1
                 'Договоренность', 
                 'Скучающий по дому']
 
-Table = ['id','user_id','name','balance','love','join_data','promo1','promo2','leshaСoin','smeshiСoin','grafiCoin','b_ya_v_Coin','register']
+Table = ['id','user_id','name','balance','love','join_data','promo1','promo2','leshaСoin','smeshiСoin','grafiCoin','b_ya_v_Coin','register','sitaited']
 
 Raspis = ['Биология(14:00-14:40)\nАнгл.язык(14:55-15:35)\nФизкультура(15:50-16:30)\nЛитература(16:40-17:20)\nАлгебра(17:30-18:10)\nАлгебра(18:20-19:00)',
           'Физика(14:00-14:40)\nГеометрия(14:55-15:35)\nТехнология(15:50-16:30)\nТехнология(16:40-17:20)\nГеография(17:30-18:10)\nИстория(18:20-19:00)',

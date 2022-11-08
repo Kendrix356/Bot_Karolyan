@@ -140,9 +140,13 @@ async def Главное_меню(message):
             
             elif message.text == "Казино🤑":
                 await dp.send_message(message.from_user.id, 'Во что играть будем?',reply_markup=kb_casino)
-            
+
             elif message.text == "Карта🃏":
-                await dp.send_message(message.from_user.id, 'Бетка')
+                photo = open('map.png', 'rb')
+                await dp.send_photo(message.chat.id, photo=photo, caption="Вот карта)")
+                item1 = InlineKeyboardButton("Поехать в другое место", callback_data='keyboaord_map1')
+                markup = InlineKeyboardMarkup(row_width=2).add(item1)
+                await dp.send_message(message.from_user.id, 'Ты находишься в <i>' + str(get_data(message.from_user.id, 'sitaited')) + '</i>', reply_markup=markup)
 
             elif message.text == "Школа🏫":
                 item1 = InlineKeyboardButton("Расписание", callback_data='keyboaord_school1')

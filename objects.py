@@ -20,6 +20,7 @@ item2_casino = KeyboardButton("Краш📈")
 
 item1_have = KeyboardButton("Движимое")
 item2_have = KeyboardButton("Недвижимое")
+item3_have = KeyboardButton("Бизнес")
 
 item1_buiznes = KeyboardButton("Бета")
 
