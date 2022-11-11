@@ -36,7 +36,7 @@ async def Главное_меню(message, state: FSMContext):
                 photo = open('map.png', 'rb')
                 await dp.send_photo(message.chat.id, photo=photo, caption="Вот карта)")
                 item1 = types.InlineKeyboardButton("Другая облать", callback_data='map_go1')
-                item2 = types.InlineKeyboardButton("Столица", callback_data='map_go2')
+                item2 = types.InlineKeyboardButton("Столица", callback_data='go_dif5')
                 item3 = types.InlineKeyboardButton("Город(жилье)", callback_data='map_go3')
                 markup = InlineKeyboardMarkup(row_width=2).add(item1, item2, item3)
                 mes = await dp.send_message(message.from_user.id, 'Ты находишься в <i>' + str(get_data(message.from_user.id, 'sitaited')) + '</i>', reply_markup=markup)
