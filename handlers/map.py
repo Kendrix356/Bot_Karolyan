@@ -34,10 +34,10 @@ async def Поехать_в_область(callback_query: types.CallbackQuery, 
     await mes.delete()
 
     if code == 1:
-        item1 = types.InlineKeyboardButton("7А", callback_data='go_dif1')
-        item2 = types.InlineKeyboardButton("7Б", callback_data='go_dif2')
-        item3 = types.InlineKeyboardButton("7В", callback_data='go_dif3')
-        item4 = types.InlineKeyboardButton("7Г", callback_data='go_dif4')
+        item1 = types.InlineKeyboardButton("7А", callback_data='go_dif0')
+        item2 = types.InlineKeyboardButton("7Б", callback_data='go_dif1')
+        item3 = types.InlineKeyboardButton("7В", callback_data='go_dif2')
+        item4 = types.InlineKeyboardButton("7Г", callback_data='go_dif3')
         markup = InlineKeyboardMarkup(row_width=2).add(item1, item2, item3, item4)
         mes = await dp.send_message(callback_query.from_user.id, 'В какую облать?', reply_markup=markup)
     elif code == 3:
@@ -67,12 +67,12 @@ async def Ехать_или_нет(callback_query: types.CallbackQuery, state: F
     item1 = types.InlineKeyboardButton("Поехали", callback_data='poex1')
     item2 = types.InlineKeyboardButton("Отмена", callback_data='poex2')
     markup = InlineKeyboardMarkup(row_width=2).add(item1, item2)
-    pay = 150
+    k = random.uniform(1,1.2)
+    pay = round(150 * k)
+    kuda = code
+
     if get_data(callback_query.from_user.id,'balance') >= pay:
-        for i in range(7):
-            if code == i:
-                kuda = i=+1
-        if get_data(callback_query.from_user.id, 'sitaited') == kuda_mes[kuda]:
+        if get_data(callback_query.from_user.id, 'location') == kuda_mes[kuda]:
             await dp.send_message(callback_query.from_user.id, 'Зачем тебе ехать туда, если ты уже там???')
         else:
             mes = await dp.send_message(callback_query.from_user.id, f'Стоимость поездки = {str(pay)}💎', reply_markup=markup)
@@ -99,9 +99,13 @@ async def Едим(callback_query: types.CallbackQuery, state: FSMContext):
     await mes.delete()
 
     if code == 1:
+        wait_sec = random.randint(10,30)
+        wait = await dp.send_message(callback_query.from_user.id, f'Через {wait_sec} секунд ты приедешь(=')
+        await asyncio.sleep(wait_sec)
+        await wait.delete()
         send_data(callback_query.from_user.id, 'balance', get_data(callback_query.from_user.id,'balance')-pay)
-        send_data(callback_query.from_user.id, 'situited', kuda_mes[kuda])
-        await dp.send_message(callback_query.from_user.id, f'Ок) -{pay}💎')
+        send_data(callback_query.from_user.id, 'location', kuda_mes[kuda])
+        await dp.send_message(callback_query.from_user.id, f'Ты приехал) -{pay}💎')
     elif code == 2:
         await dp.send_message(callback_query.from_user.id, 'Ок)')
 

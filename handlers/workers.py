@@ -39,11 +39,11 @@ async def Работы(callback_query: types.CallbackQuery):
         working = 1
         answer = 0
         msg1 = await dp.send_message(callback_query.from_user.id, f"Ты выбрал работу - <i>Переводчик</i>")
-        time.sleep(1)
+        await asyncio.sleep(1)
         msg2 = await dp.send_message(callback_query.from_user.id, "Ее задача заключается в том, что нужно уметь быcтро переводить текст с английского на русский.")
-        time.sleep(3)
+        await asyncio.sleep(3)
         msg3 = await dp.send_message(callback_query.from_user.id, "Через 5 секунд начнется твоя работа, готовься!")
-        time.sleep(5)
+        await asyncio.sleep(5)
         await msg1.delete()
         await msg2.delete()
         await msg3.delete()
@@ -66,7 +66,45 @@ async def Работы(callback_query: types.CallbackQuery):
     if code == 2:
         pass
     if code == 3:
-        pass
+        msg1 = await dp.send_message(callback_query.from_user.id, f"Ты выбрал работу - <i>Сетевой Администратор</i>")
+        await asyncio.sleep(1)
+        msg2 = await dp.send_message(callback_query.from_user.id, "Ее задача заключается в том, что нужно уметь быcтро находить ошибки на сервере. Если на каком то канале сервера появится '1' нажимай кнопку исправить")
+        await asyncio.sleep(8)
+        msg3 = await dp.send_message(callback_query.from_user.id, "Через 5 секунд начнется твоя работа, готовься!")
+        await asyncio.sleep(5)
+        await msg1.delete()
+        await msg2.delete()
+        await msg3.delete()
+        await dp.send_message(callback_query.from_user.id, "Начинаем!",reply_markup=kb_stop_work)
+        line1 = list('000000000000000000000')
+        line2 = list('000000000000000000000')
+        line3 = list('000000000000000000000')
+        line4 = list('000000000000000000000')
+        line5 = list('000000000000000000000')
+        serever_msg = await dp.send_message(callback_query.from_user.id, f"{line1}\n{line2}\n{line3}\n{line4}\n{line5}\n")
+        e_last = 0
+        while(True):
+            time = random.randint(0, 40)
+            await asyncio.sleep(time)
+            l = random.randint(1,5)
+            e_now = random.randint(0,20)
+            while(True):
+                if e_now == e_last:
+                    e_now = random.randint(0,20)
+                else:
+                    break
+            if l == 1:
+                line1[e_now] = '1'
+            elif l == 2:
+                line2[e_now] = '1'
+            elif l == 3:
+                line3[e_now] = '1'
+            elif l == 4:
+                line4[e_now] = '1'
+            elif l == 5:
+                line5[e_now] = '1'
+            await serever_msg.edit_text(f"{line1}\n{line2}\n{line3}\n{line4}\n{line5}\n")
+            e_last = e_now
 
 @bot.callback_query_handler(lambda c: c.data and c.data.startswith('translate_'))
 async def Переводчик(callback_query: types.CallbackQuery):

@@ -36,10 +36,10 @@ async def Главное_меню(message, state: FSMContext):
                 photo = open('map.png', 'rb')
                 await dp.send_photo(message.chat.id, photo=photo, caption="Вот карта)")
                 item1 = types.InlineKeyboardButton("Другая облать", callback_data='map_go1')
-                item2 = types.InlineKeyboardButton("Столица", callback_data='go_dif5')
+                item2 = types.InlineKeyboardButton("Столица", callback_data='go_dif4')
                 item3 = types.InlineKeyboardButton("Город(жилье)", callback_data='map_go3')
                 markup = InlineKeyboardMarkup(row_width=2).add(item1, item2, item3)
-                mes = await dp.send_message(message.from_user.id, 'Ты находишься в <i>' + str(get_data(message.from_user.id, 'sitaited')) + '</i>'+ '\nЕсли хочешь переехать нажми кнопку)', reply_markup=markup)
+                mes = await dp.send_message(message.from_user.id, 'Ты находишься в <i>' + str(get_data(message.from_user.id, 'location')) + '</i>'+ '\nЕсли хочешь переехать нажми кнопку)', reply_markup=markup)
                 async with state.proxy() as data:
                     data['mes'] = mes
 
@@ -108,6 +108,9 @@ async def Главное_меню(message, state: FSMContext):
                 markup = InlineKeyboardMarkup(row_width=2).add(item1, item2, item3)
                 await dp.send_message(message.from_user.id, 'Кем будешь работать?', reply_markup=markup)
 
+            elif message.text == "Бизнес":
+                await dp.send_message(message.from_user.id,'Пока недоступно)=')
+
             elif message.text == "Промокоды🎂":
                 await dp.send_message(message.from_user.id,'Напиши промоко_дик')
                 await Form_promo.promo.set()
@@ -132,9 +135,9 @@ async def Главное_меню(message, state: FSMContext):
                 await dp.send_message(message.from_user.id, 'Ставь ставку!')
                 await Form_cas777.stavka.set()
 
-            elif message.text == "Краш📈":
-                await dp.send_message(message.from_user.id, 'Ставь ставку!')
-                #await Form_crash.other.set()
+            # elif message.text == "Краш📈":
+            #     await dp.send_message(message.from_user.id, 'Ставь ставку!')
+            #     #await Form_crash.other.set()
                 
             elif message.text == "Купить валюту":
                 item1 = types.InlineKeyboardButton("ЛешаКоин", callback_data='min1')
@@ -151,10 +154,7 @@ async def Главное_меню(message, state: FSMContext):
                 item4 = types.InlineKeyboardButton("Блин я второй Коин", callback_data='pls4')
                 markup = InlineKeyboardMarkup(row_width=2).add(item1, item2, item3, item4)
                 await dp.send_message(message.from_user.id, 'Выбирай:', reply_markup=markup)
-
-            elif message.text == "Майнинг":
-                pass
-
+                
             elif 'Нах' in message.text or 'нах' in message.text:
                 await dp.send_message(message.from_user.id, 'только после тебя')
             elif 'Баранина' in message.text or 'баранина' in message.text:

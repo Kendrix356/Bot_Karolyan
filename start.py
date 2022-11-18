@@ -32,8 +32,8 @@ from aiogram.utils import executor
 from aiogram.dispatcher import Dispatcher
 from aiogram.dispatcher.filters.state import State, StatesGroup
 
-thread = Thread(target=run)
-thread.start()
+# thread = Thread(target=run)
+# thread.start()
 
 start.reg_handlers_start(bot)
 admin_panal.reg_handlers_admin_panel(bot)

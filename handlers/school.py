@@ -34,7 +34,7 @@ async def Расписание(callback_query: types.CallbackQuery):
         except:
             await dp.send_message(callback_query.from_user.id, 'Сегодня выходной!')
     if code == 2:
-        pass
+        await dp.send_message(callback_query.from_user.id, 'Я пока не знаю ответов на музыку')
 
 def reg_handlers_school(bot: Dispatcher):
     bot.register_callback_query_handler(Расписание,lambda c: c.data and c.data.startswith('keyboaord_school'))

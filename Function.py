@@ -62,10 +62,10 @@ def get_data(id, column):
     send_data = cursor.fetchall()
     for i in range(len(Table)):
         if (column == Table[i]):
-            print(Table[i])
+            # print(Table[i])
             for row in send_data:
                 data = row[i]
-            print(data)
+            # print(data)
     conn.commit()
     cursor.close()
     return data
@@ -75,8 +75,8 @@ def send_data(id, column, data_edit):
     cursor = conn.cursor()
     select_wh_user_id = f"""Update users set {column} = ? where user_id = ?"""
     data = (data_edit, id)
-    print(select_wh_user_id)
-    print(data)
+    # print(select_wh_user_id)
+    # print(data)
     cursor.execute(select_wh_user_id, (data),)
     conn.commit()
     cursor.close()

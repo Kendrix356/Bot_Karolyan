@@ -16,7 +16,7 @@ item3_income = KeyboardButton("Промокоды🎂")
 item4_income = KeyboardButton("КриптоБиржа💹")
 
 item1_casino = KeyboardButton("Автомат🎰")
-item2_casino = KeyboardButton("Краш📈")
+# item2_casino = KeyboardButton("Краш📈")
 
 item1_have = KeyboardButton("Движимое")
 item2_have = KeyboardButton("Недвижимое")
@@ -26,7 +26,6 @@ item1_buiznes = KeyboardButton("Бета")
 
 item1_cripto = KeyboardButton("Купить валюту")
 item2_cripto = KeyboardButton("Продать валюту")
-item3_cripto = KeyboardButton("Майнинг")
 
 item_back = KeyboardButton("Назад")
 
@@ -44,10 +43,10 @@ kb_menu.add(item1, item2, item3)
 kb_menu.row(item4, item5, item6, item7)
 kb_menu.row(item8, item9)
 kb_income.add(item1_income, item2_income, item3_income, item4_income, item_back)
-kb_casino.add(item1_casino, item2_casino, item_back)
+kb_casino.add(item1_casino, item_back)
 kb_have.add(item1_have, item2_have, item_back)
 kb_buiznes.add(item1_buiznes, item_back)
-kb_cripto.add(item1_cripto, item2_cripto, item3_cripto, item_back)
+kb_cripto.add(item1_cripto, item2_cripto, item_back)
 kb_stop_work.add(item_stop)
 
 if __name__ == "__main__":
