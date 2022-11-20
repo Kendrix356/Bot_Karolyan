@@ -76,18 +76,18 @@ async def Работы(callback_query: types.CallbackQuery):
         await msg2.delete()
         await msg3.delete()
         await dp.send_message(callback_query.from_user.id, "Начинаем!",reply_markup=kb_stop_work)
-        line1 = list('000000000000000000000')
-        line2 = list('000000000000000000000')
-        line3 = list('000000000000000000000')
-        line4 = list('000000000000000000000')
-        line5 = list('000000000000000000000')
-        serever_msg = await dp.send_message(callback_query.from_user.id, f"{line1}\n{line2}\n{line3}\n{line4}\n{line5}\n")
+        line1 = list('00000000000')
+        line2 = list('00000000000')
+        line3 = list('00000000000')
+        line4 = list('00000000000')
+        line5 = list('00000000000')
+        serever_msg = await dp.send_message(callback_query.from_user.id, f"{line1}\n{line2}\n{line3}\n{line4}\n{line5}\n",reply_markup=kb_reboot_work)
         e_last = 0
         while(True):
             time = random.randint(0, 40)
             await asyncio.sleep(time)
             l = random.randint(1,5)
-            e_now = random.randint(0,20)
+            e_now = random.randint(0,11)
             while(True):
                 if e_now == e_last:
                     e_now = random.randint(0,20)
@@ -139,6 +139,11 @@ async def Переводчик(callback_query: types.CallbackQuery):
         if answers == 10:
             await dp.send_message(callback_query.from_user.id, f"Вот и поработали) У тебя {right_answer} из 10 правильных. Ты заработал {right_answer*10}💎")
             send_data(callback_query.from_user.id, 'balance', get_data(callback_query.from_user.id, 'balance') + right_answer*10)
+
+async def Кнопки(message):
+    if message.text == "Завершить":
+        await dp.send_message(message.from_user.id, 'Есть много способов зароботка:)',reply_markup=kb_income)
+            
 
 def reg_handlers_school(bot: Dispatcher):
     bot.register_callback_query_handler(Работы,lambda c: c.data and c.data.startswith('job_'))
