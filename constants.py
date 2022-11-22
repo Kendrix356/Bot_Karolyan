@@ -18,8 +18,6 @@ answer = 0
 translate_msg = 0
 right_answer = 0
 answers = 0
-working = 1
-
 id = 0
 
 words_english = ['Apple', #1

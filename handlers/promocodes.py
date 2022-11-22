@@ -24,7 +24,6 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 #@bot.message_handler(state=Form_promo.promo)
 async def Промокоды(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
-        global bal
         data['promo'] = message.text
 
         if data['promo'] == 'eRop1n':

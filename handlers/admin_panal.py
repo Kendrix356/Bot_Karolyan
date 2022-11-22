@@ -59,7 +59,6 @@ async def Добавление_нового_пользователя(message: ty
         data['id'] = message.text
         ids_users.append(data['id'])
         await dp.send_message(message.from_user.id, "Ок.")
-    await state.finish()
 
 #@bot.message_handler(state=Form_id_delete.id)
 async def Удаление_пользователя(message: types.Message, state: FSMContext):
@@ -73,7 +72,6 @@ async def Удаление_пользователя(message: types.Message, stat
             await dp.send_message(message.from_user.id, "Ок.")
         except:
             await dp.send_message(message.from_user.id, "Что-то пошло не так.")
-    await state.finish()
 
 #@bot.message_handler(state=Form_send_mes.id)
 async def Отправка_сообщения1(message: types.Message, state: FSMContext):

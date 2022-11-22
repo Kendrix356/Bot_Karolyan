@@ -106,7 +106,10 @@ async def Главное_меню(message, state: FSMContext):
                 item2 = types.InlineKeyboardButton("Таксист", callback_data='job_2')
                 item3 = types.InlineKeyboardButton("Сетевой Администратор", callback_data='job_3')
                 markup = InlineKeyboardMarkup(row_width=2).add(item1, item2, item3)
-                await dp.send_message(message.from_user.id, 'Кем будешь работать?', reply_markup=markup)
+                works_mes = await dp.send_message(message.from_user.id, 'Кем будешь работать?', reply_markup=markup)
+                async with state.proxy() as data:
+                    data['works_mes'] = works_mes
+                    data['working'] = 1
 
             elif message.text == "Бизнес":
                 await dp.send_message(message.from_user.id,'Пока недоступно)=')
@@ -186,8 +189,8 @@ async def Главное_меню(message, state: FSMContext):
                 await dp.send_message(message.from_user.id, 'Ок', reply_markup=kb_menu)
 
             elif message.text == "Завершить":
-                global working
-                working = 0
+                async with state.proxy() as data:
+                    data['working'] = 0
                 await dp.send_message(message.from_user.id, 'Ок', reply_markup=kb_menu)    
 
             else:

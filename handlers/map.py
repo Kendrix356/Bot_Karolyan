@@ -29,8 +29,8 @@ async def Поехать_в_область(callback_query: types.CallbackQuery, 
 
     async with state.proxy() as data:
         mes = data['mes']
-    await state.finish()
-
+        await state.finish()
+        
     await mes.delete()
 
     if code == 1:
@@ -60,7 +60,7 @@ async def Ехать_или_нет(callback_query: types.CallbackQuery, state: F
 
     async with state.proxy() as data:
         mes = data['mes']
-    await state.finish()
+        await state.finish()
 
     await mes.delete()
 
