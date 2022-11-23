@@ -113,44 +113,69 @@ async def Работы(callback_query: types.CallbackQuery, state: FSMContext):
         line3_S = '00000000000'
         line4_S = '00000000000'
         line5_S = '00000000000'
-        for i in range(10):
-            time = random.randint(0, 40)
-            await asyncio.sleep(time)
-            l = random.randint(1,5)
-            if l == 1:
+        item_stop = KeyboardButton("Перезагрузить", callback_data='network_1')
+        markup = InlineKeyboardMarkup(row_width=2).add(item_stop)
+        flag = 0
+        state = 0
+        i = 0
+        while(True): 
+            if state == 0:   
+                state = 1
+                l = random.randint(1,5)
+                if l == 1:
+                    line1_L = list('00000000000')
+                    n = random.randint(0,10)
+                    if line1_L[n] == '0':
+                        line1_L[n] = '1'
+                    line1_S = " ".join(line1_L)
+                    line1_S = line1_S.replace(" ","")
+                elif l == 2:
+                    line2_L = list('00000000000')
+                    n = random.randint(0,10)
+                    if line2_L[n] == '0':
+                        line2_L[n] = '1'
+                    line2_S = " ".join(line2_L)
+                    line2_S = line2_S.replace(" ","")
+                elif l == 3:
+                    line3_L = list('00000000000')
+                    n = random.randint(0,10)
+                    if line3_L[n] == '0':
+                        line3_L[n] = '1'
+                    line3_S = " ".join(line3_L)
+                    line3_S = line3_S.replace(" ","")
+                elif l == 4:
+                    line4_L = list('00000000000')
+                    n = random.randint(0,10)
+                    if line4_L[n] == '0':
+                        line4_L[n] = '1'
+                    line4_S = " ".join(line4_L)
+                    line4_S = line4_S.replace(" ","")
+                elif l == 5:
+                    line5_L = list('00000000000')
+                    n = random.randint(0,10)
+                    if line5_L[n] == '0':
+                        line5_L[n] = '1'
+                    line5_S = " ".join(line5_L)
+                    line5_S = line5_S.replace(" ","")
+                if i != 0:
+                    await serever_msg.edit_text(f"{line1_S}\n{line2_S}\n{line3_S}\n{line4_S}\n{line5_S}\n",reply_markup=markup)
+                else:
+                    i = 1
+                    serever_msg = await dp.send_message(callback_query.from_user.id, f"{line1_S}\n{line2_S}\n{line3_S}\n{line4_S}\n{line5_S}\n",reply_markup=markup)
+            if flag == 1:
+                print('Press')
                 line1_L = list('00000000000')
-                n = random.randint(0,11)
-                line1_L[n] = '1'
-                line1_S = " ".join(line1_L)
-                line1_S = line1_S.replace(" ","")
-            elif l == 2:
                 line2_L = list('00000000000')
-                n = random.randint(0,11)
-                line2_L[n] = '1'
-                line2_S = " ".join(line2_L)
-                line2_S = line2_S.replace(" ","")
-            elif l == 3:
                 line3_L = list('00000000000')
-                n = random.randint(0,11)
-                line3_L[n] = '1'
-                line3_S = " ".join(line3_L)
-                line3_S = line3_S.replace(" ","")
-            elif l == 4:
                 line4_L = list('00000000000')
-                n = random.randint(0,11)
-                line4_L[n] = '1'
-                line4_S = " ".join(line4_L)
-                line4_S = line4_S.replace(" ","")
-            elif l == 5:
                 line5_L = list('00000000000')
-                n = random.randint(0,11)
-                line5_L[n] = '1'
-                line5_S = " ".join(line5_L)
-                line5_S = line5_S.replace(" ","")
-            if i != 0:
-                await serever_msg.edit_text(f"{line1_S}\n{line2_S}\n{line3_S}\n{line4_S}\n{line5_S}\n")
-            else:
-                serever_msg = await dp.send_message(callback_query.from_user.id, f"{line1_S}\n{line2_S}\n{line3_S}\n{line4_S}\n{line5_S}\n",reply_markup=kb_reboot_work)
+                async with state.proxy() as data:
+                    data['flag'] = 0
+                state = 0
+            time = random.randint(5, 15)
+            await asyncio.sleep(time)
+            async with state.proxy() as data:
+                flag = data['flag']
 
 
 #@bot.callback_query_handler(lambda c: c.data and c.data.startswith('translate_'))
@@ -174,6 +199,14 @@ async def Переводчик(callback_query: types.CallbackQuery, state: FSMCo
         async with state.proxy() as data:
             data['answer'] = answer         
 
+#@bot.callback_query_handler(lambda c: c.data and c.data.startswith('network_'))
+async def Сетевой_админ(callback_query: types.CallbackQuery, state: FSMContext):
+
+    await dp.answer_callback_query(callback_query.id)
+    async with state.proxy() as data:
+        data['flag'] = 1
+
 def reg_handlers_school(bot: Dispatcher):
     bot.register_callback_query_handler(Работы,lambda c: c.data and c.data.startswith('job_'))
     bot.register_callback_query_handler(Переводчик,lambda c: c.data and c.data.startswith('translate_'))
+    bot.register_callback_query_handler(Сетевой_админ,lambda c: c.data and c.data.startswith('network_'))

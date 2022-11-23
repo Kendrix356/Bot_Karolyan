@@ -110,7 +110,6 @@ async def Главное_меню(message, state: FSMContext):
                 async with state.proxy() as data:
                     data['works_mes'] = works_mes
                     data['working'] = 1
-
             elif message.text == "Бизнес":
                 await dp.send_message(message.from_user.id,'Пока недоступно)=')
 

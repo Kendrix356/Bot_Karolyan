@@ -31,8 +31,6 @@ item_back = KeyboardButton("Назад")
 
 item_stop = KeyboardButton("Завершить")
 
-item_reboot = KeyboardButton("Перезагрузить")
-
 kb_menu = ReplyKeyboardMarkup(resize_keyboard=True)
 kb_income = ReplyKeyboardMarkup(resize_keyboard=True)
 kb_casino = ReplyKeyboardMarkup(resize_keyboard=True)
@@ -40,7 +38,7 @@ kb_have = ReplyKeyboardMarkup(resize_keyboard=True)
 kb_buiznes = ReplyKeyboardMarkup(resize_keyboard=True)
 kb_cripto = ReplyKeyboardMarkup(resize_keyboard=True)
 kb_stop_work = ReplyKeyboardMarkup(resize_keyboard=True)
-kb_reboot_work = ReplyKeyboardMarkup(resize_keyboard=True)
+
 
 kb_menu.add(item1, item2, item3)
 kb_menu.row(item4, item5, item6, item7)
@@ -51,7 +49,6 @@ kb_have.add(item1_have, item2_have, item_back)
 kb_buiznes.add(item1_buiznes, item_back)
 kb_cripto.add(item1_cripto, item2_cripto, item_back)
 kb_stop_work.add(item_stop)
-kb_reboot_work.add(item_stop, kb_reboot_work)
 
 if __name__ == "__main__":
     kb_menu = ReplyKeyboardMarkup(resize_keyboard=True)
@@ -61,4 +58,3 @@ if __name__ == "__main__":
     kb_buiznes = ReplyKeyboardMarkup(resize_keyboard=True)
     kb_cripto = ReplyKeyboardMarkup(resize_keyboard=True)
     kb_stop_work = ReplyKeyboardMarkup(resize_keyboard=True)
-    kb_reboot_work = ReplyKeyboardMarkup(resize_keyboard=True)
