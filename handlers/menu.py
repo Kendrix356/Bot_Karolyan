@@ -105,14 +105,24 @@ async def Главное_меню(message, state: FSMContext):
                 item1 = types.InlineKeyboardButton("Переводчик", callback_data='job_1')
                 item2 = types.InlineKeyboardButton("Таксист", callback_data='job_2')
                 item3 = types.InlineKeyboardButton("Сетевой Администратор", callback_data='job_3')
-                markup = InlineKeyboardMarkup(row_width=2).add(item1, item2, item3)
+                markup = InlineKeyboardMarkup(row_width=2).add(item1, item2, item3)                                                                                                                                                                                                                                                                                                                 
                 works_mes = await dp.send_message(message.from_user.id, 'Кем будешь работать?', reply_markup=markup)
                 async with state.proxy() as data:
                     data['works_mes'] = works_mes
                     data['working'] = 1
             elif message.text == "Бизнес":
-                await dp.send_message(message.from_user.id,'Пока недоступно)=')
-
+                have_buizness = get_data(message.from_user.id, 'buizness')
+                if have_buizness == 0:
+                    await dp.send_message(message.from_user.id, "Ты пока не имешь бизнеса, если ты хочешь купить, тебе в магазин")
+                else:
+                    if buizness[have_buizness] == 'Автомат с едой': 
+                        photo_b = open('buizness1.jpg', 'rb')
+                    elif buizness[have_buizness] == 'Кофейня': 
+                        photo_b = open('buizness2.jpg', 'rb')
+                    item1 = types.InlineKeyboardButton("Подробнее", callback_data='pod_1')
+                    item2 = types.InlineKeyboardButton("Как работает бизнес", callback_data='pod_2')
+                    markup = InlineKeyboardMarkup(row_width=2).add(item1, item2)
+                    await dp.send_photo(message.from_user.id, photo=photo_b, caption=f"У тебя есть бизнес <b>{buizness[have_buizness]}</b>", reply_markup=markup)
             elif message.text == "Промокоды🎂":
                 await dp.send_message(message.from_user.id,'Напиши промоко_дик')
                 await Form_promo.promo.set()

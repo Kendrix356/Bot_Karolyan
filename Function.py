@@ -48,13 +48,32 @@ def geeks():
         print(Blin_ya_ftoroy_coin)
     print(" ")
 
-def run():
-    schedule.every(5).seconds.do(geeks) 
+def buizness_zarp():
+    for i in ids_users:
+        have_buizness = get_data(i, 'buizness')
+        if have_buizness != 0:
+            if have_buizness == 1: pay = 20
+            elif have_buizness == 2: pay = 35
+            send_data(i,'balance',get_data(i,'balance')+pay)
+def run_buizness():
+    schedule.every().hour.do(buizness_zarp) 
     while True: 
         schedule.run_pending() 
         time.sleep(1)
 
+def send_data(id, column, data_edit):
+    conn = sqlite3.connect("us.db", check_same_thread=False)
+    cursor = conn.cursor()
+    select_wh_user_id = f"""Update users set {column} = ? where user_id = ?"""
+    data = (data_edit, id)
+    # print(select_wh_user_id)
+    # print(data)
+    cursor.execute(select_wh_user_id, (data),)
+    conn.commit()
+    cursor.close()
+
 def get_data(id, column):
+    global data
     conn = sqlite3.connect("us.db", check_same_thread=False)
     cursor = conn.cursor()
     select_wh_user_id = """select * FROM users where user_id = ?"""
@@ -69,17 +88,6 @@ def get_data(id, column):
     conn.commit()
     cursor.close()
     return data
-
-def send_data(id, column, data_edit):
-    conn = sqlite3.connect("us.db", check_same_thread=False)
-    cursor = conn.cursor()
-    select_wh_user_id = f"""Update users set {column} = ? where user_id = ?"""
-    data = (data_edit, id)
-    # print(select_wh_user_id)
-    # print(data)
-    cursor.execute(select_wh_user_id, (data),)
-    conn.commit()
-    cursor.close()
 
 def reg(user_id):
     conn = sqlite3.connect('us.db')

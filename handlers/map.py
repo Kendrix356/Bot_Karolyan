@@ -105,7 +105,9 @@ async def Едим(callback_query: types.CallbackQuery, state: FSMContext):
         await wait.delete()
         send_data(callback_query.from_user.id, 'balance', get_data(callback_query.from_user.id,'balance')-pay)
         send_data(callback_query.from_user.id, 'location', kuda_mes[kuda])
-        await dp.send_message(callback_query.from_user.id, f'Ты приехал) -{pay}💎')
+        if kuda_mes[kuda] == 'Столица': await dp.send_message(callback_query.from_user.id, f'Ты приехал) -{pay}💎',reply_markup=kb_menu_st)
+        elif kuda_mes[kuda] == 'Верхний город' or kuda_mes[kuda] == 'Нижний город': await dp.send_message(callback_query.from_user.id, f'Ты приехал) -{pay}💎',reply_markup=kb_menu)
+        else: await dp.send_message(callback_query.from_user.id, f'Ты приехал) -{pay}💎',reply_markup=kb_menu)
     elif code == 2:
         await dp.send_message(callback_query.from_user.id, 'Ок)')
 
