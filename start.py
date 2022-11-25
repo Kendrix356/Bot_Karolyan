@@ -10,6 +10,7 @@ from handlers import biography
 from handlers import buizness
 from handlers import casino_777
 from handlers import crypto_exchange
+from handlers import magazin
 from handlers import map
 from handlers import menu
 from handlers import promocodes
@@ -45,6 +46,7 @@ biography.reg_handlers_biography(bot)
 buizness.reg_handlers_buizness(bot)
 casino_777.reg_handlers_casino_777(bot)
 crypto_exchange.reg_handlers_crypto_exchange(bot)
+magazin.reg_handlers_magazin(bot)
 map.reg_handlers_map(bot)
 promocodes.reg_handlers_promocodes(bot)
 request_to_moderator.reg_handlers_request_to_moderator(bot)

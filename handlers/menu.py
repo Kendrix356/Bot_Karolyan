@@ -52,8 +52,14 @@ async def Главное_меню(message, state: FSMContext):
             elif message.text == "Пожертвование🙏":
                 await dp.send_message(message.from_user.id, 'Если ты хочешь пожертвовать немного денег на развитие бота, нажми сюда -> https://clck.ru/32WjF3')    
 
-            elif message.text == "Мое Магазин🏪":
-                await dp.send_message(message.from_user.id, 'Прайс лист:')
+            elif message.text == "Магазин🏪":
+                item1 = InlineKeyboardButton("Бизнес", callback_data='mag_1')
+                item2 = InlineKeyboardButton("Бустеры", callback_data='mag_2')
+                item3 = InlineKeyboardButton("Коллекционные предметы", callback_data='mag_3')
+                markup = InlineKeyboardMarkup(row_width=2).add(item1, item2, item3)
+                mes = await dp.send_message(message.from_user.id, 'Выбери категорию:',reply_markup=markup)
+                async with state.proxy() as data:
+                    data['mes_mag'] = mes
 
             elif message.text == "Моя биография👶":
                 item1 = InlineKeyboardButton("Как зовут?🧐", callback_data='keyboaord2_button1')
@@ -195,12 +201,18 @@ async def Главное_меню(message, state: FSMContext):
                     send_data(message.from_user.id, 'balance', get_data(message.from_user.id, 'balance')+100)
 
             elif message.text == "Назад":
-                await dp.send_message(message.from_user.id, 'Ок', reply_markup=kb_menu)
+                location = get_data(message.from_user.id, 'location')
+                if location == 'Столица': await dp.send_message(message.from_user.id, "Привет!", reply_markup=kb_menu_st)
+                elif location == 'Верхний город' or location == 'Нижний город': await dp.send_message(message.from_user.id, "Привет!", reply_markup=kb_menu)
+                else: await dp.send_message(message.from_user.id, "Привет!", reply_markup=kb_menu)
 
             elif message.text == "Завершить":
                 async with state.proxy() as data:
                     data['working'] = 0
-                await dp.send_message(message.from_user.id, 'Ок', reply_markup=kb_menu)    
+                location = get_data(message.from_user.id, 'location')
+                if location == 'Столица': await dp.send_message(message.from_user.id, "Привет!", reply_markup=kb_menu_st)
+                elif location == 'Верхний город' or location == 'Нижний город': await dp.send_message(message.from_user.id, "Привет!", reply_markup=kb_menu)
+                else: await dp.send_message(message.from_user.id, "Привет!", reply_markup=kb_menu)    
 
             else:
                 await dp.send_message(message.from_user.id, 'Переведи на ботоводский, я не поняла😢')

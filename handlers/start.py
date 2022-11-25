@@ -26,15 +26,21 @@ async def Приветствие(message: types.Message):
         if message.from_user.id == ids_users[i]:
             try:
                 if get_data(message.from_user.id,'register') == 1:
-                    await dp.send_message(message.from_user.id, "Привет. Я - бот для группы 7-ого 'Б' класса.Я буду всегда помогать тебе. Но это не правда😁")
+                    await dp.send_message(message.from_user.id, "Привет. Я - бот для группы 7-ого 'Б' класса. Я буду всегда помогать тебе. Но это не правда😁")
                     await Form_name.name.set()
                     await dp.send_message(message.from_user.id,'Напиши пожалалуйста свое реально имя, а то штраф 150(=')
-                    register = 0
-                    send_data(message.from_user.id, 'register', register)
-                else:
-                    await dp.send_message(message.from_user.id, "Привет)", reply_markup=kb_menu)
+                    send_data(message.from_user.id, 'register', 0)
+                elif get_data(message.from_user.id,'register') == 0:
+                    location = get_data(message.from_user.id, 'location')
+                    if location == 'Столица': await dp.send_message(message.from_user.id, "Привет!", reply_markup=kb_menu_st)
+                    elif location == 'Верхний город' or location == 'Нижний город': await dp.send_message(message.from_user.id, "Привет!", reply_markup=kb_menu)
+                    else: await dp.send_message(message.from_user.id, "Привет!", reply_markup=kb_menu)
             except:
                 reg(message.from_user.id)
+                await dp.send_message(message.from_user.id, "Привет. Я - бот для группы 7-ого 'Б' класса. Я буду всегда помогать тебе. Но это не правда😁")
+                await Form_name.name.set()
+                await dp.send_message(message.from_user.id,'Напиши пожалалуйста свое реально имя, а то штраф 150(=')
+                send_data(message.from_user.id, 'register', 0)
                 
 @bot.message_handler(state=Form_name.name)
 async def Регистрация(message: types.Message, state: FSMContext):
@@ -42,7 +48,10 @@ async def Регистрация(message: types.Message, state: FSMContext):
         data['name'] = message.text
         send_data(message.from_user.id, 'name', remove_char(md.bold(data['name'])))
     await state.finish()
-    await dp.send_message(message.from_user.id, "Спасибки)", reply_markup=kb_menu)
+    location = get_data(message.from_user.id, 'location')
+    if location == 'Столица': await dp.send_message(message.from_user.id, "Спасибки)", reply_markup=kb_menu_st)
+    elif location == 'Верхний город' or location == 'Нижний город': await dp.send_message(message.from_user.id, "Спасибки)", reply_markup=kb_menu)
+    else: await dp.send_message(message.from_user.id, "Спасибки)", reply_markup=kb_menu)
 
 def reg_handlers_start(bot: Dispatcher):
     bot.register_message_handler(Приветствие,commands=['start'])
