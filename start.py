@@ -35,9 +35,7 @@ from aiogram.utils import executor
 from aiogram.dispatcher import Dispatcher
 from aiogram.dispatcher.filters.state import State, StatesGroup
 
-# thread = Thread(target=run)
-# thread.start()
-thread_buizness = Thread(target=run_buizness)
+thread_buizness = Thread(target=run_buizness_and_cripts)
 thread_buizness.start()
 
 start.reg_handlers_start(bot)

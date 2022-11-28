@@ -29,6 +29,10 @@ async def Криптобиржа_продажа(callback_query: types.CallbackQu
         code2 = int(code2)
 
     bal = get_data(callback_query.from_user.id, 'balance')
+    global LeshaCoin
+    global SmeshiСoin
+    global GrafiCoin
+    global Blin_ya_ftoroy_coin
 
     if code2 == 1:
         if bal >= LeshaCoin:
@@ -68,6 +72,10 @@ async def Криптобиржа_купить(callback_query: types.CallbackQuer
         code2 = int(code2)
 
     bal = get_data(callback_query.from_user.id, 'balance')
+    global LeshaCoin
+    global SmeshiСoin
+    global GrafiCoin
+    global Blin_ya_ftoroy_coin 
 
     if code2 == 1:
         if get_data(callback_query.from_user.id, 'leshaCoin') >= 1:

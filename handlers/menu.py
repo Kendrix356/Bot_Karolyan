@@ -134,11 +134,12 @@ async def Главное_меню(message, state: FSMContext):
                 await Form_promo.promo.set()
 
             elif message.text == "КриптоБиржа💹":
-                await dp.send_message(message.from_user.id, "Курс:", reply_markup=kb_cripto)
                 global LeshaCoin
                 global SmeshiСoin
                 global GrafiCoin
                 global Blin_ya_ftoroy_coin
+
+                await dp.send_message(message.from_user.id, "Курс:", reply_markup=kb_cripto)
                 await message.answer(
                 fmt.text(
                 fmt.text("ЛешаКоин: ",LeshaCoin),
@@ -202,17 +203,17 @@ async def Главное_меню(message, state: FSMContext):
 
             elif message.text == "Назад":
                 location = get_data(message.from_user.id, 'location')
-                if location == 'Столица': await dp.send_message(message.from_user.id, "Привет!", reply_markup=kb_menu_st)
-                elif location == 'Верхний город' or location == 'Нижний город': await dp.send_message(message.from_user.id, "Привет!", reply_markup=kb_menu)
-                else: await dp.send_message(message.from_user.id, "Привет!", reply_markup=kb_menu)
+                if location == 'Столица': await dp.send_message(message.from_user.id, "Ок", reply_markup=kb_menu_st)
+                elif location == 'Верхний город' or location == 'Нижний город': await dp.send_message(message.from_user.id, "Ок", reply_markup=kb_menu)
+                else: await dp.send_message(message.from_user.id, "Ок", reply_markup=kb_menu)
 
             elif message.text == "Завершить":
                 async with state.proxy() as data:
                     data['working'] = 0
                 location = get_data(message.from_user.id, 'location')
-                if location == 'Столица': await dp.send_message(message.from_user.id, "Привет!", reply_markup=kb_menu_st)
-                elif location == 'Верхний город' or location == 'Нижний город': await dp.send_message(message.from_user.id, "Привет!", reply_markup=kb_menu)
-                else: await dp.send_message(message.from_user.id, "Привет!", reply_markup=kb_menu)    
+                if location == 'Столица': await dp.send_message(message.from_user.id, "Ок", reply_markup=kb_menu_st)
+                elif location == 'Верхний город' or location == 'Нижний город': await dp.send_message(message.from_user.id, "Ок", reply_markup=kb_menu)
+                else: await dp.send_message(message.from_user.id, "Ок", reply_markup=kb_menu)    
 
             else:
                 await dp.send_message(message.from_user.id, 'Переведи на ботоводский, я не поняла😢')

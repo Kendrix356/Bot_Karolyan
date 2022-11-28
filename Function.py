@@ -13,40 +13,23 @@ def remove_char(s):
 def is_even(number):
     return number % 0.1 == 0
     
-def geeks():
+def cripts_ob():
     global LeshaCoin
     global SmeshiСoin
     global GrafiCoin
     global Blin_ya_ftoroy_coin
-    print("ЛешаКоин ")
-    if random.choice(['+','-']) == '+':
-        LeshaCoin = LeshaCoin + random.uniform(0, 10)
-        print(LeshaCoin)
-    else:
-        LeshaCoin = LeshaCoin - random.uniform(0, 10)
-        print(LeshaCoin)
-    print("СмешиКоин ")
-    if random.choice(['+','-']) == '+':
-        SmeshiСoin = SmeshiСoin + random.uniform(0, 10)
-        print(SmeshiСoin)
-    else:
-        SmeshiСoin = SmeshiСoin - random.uniform(0, 10)
-        print(SmeshiСoin)
-    print("ГрафиКоин ")
-    if random.choice(['+','-']) == '+':
-        GrafiCoin = GrafiCoin + random.uniform(0, 10)
-        print(GrafiCoin)
-    else:
-        GrafiCoin = GrafiCoin - random.uniform(0, 10)
-        print(GrafiCoin)
-    print("Блин я второй Коин ")
-    if random.choice(['+','-']) == '+':
-        Blin_ya_ftoroy_coin = Blin_ya_ftoroy_coin + random.uniform(0, 10)
-        print(Blin_ya_ftoroy_coin)
-    else:
-        Blin_ya_ftoroy_coin = Blin_ya_ftoroy_coin - random.uniform(0, 10)
-        print(Blin_ya_ftoroy_coin)
-    print(" ")
+
+    crip = random.randint(0,3)
+    raz = random.uniform(-10, 10)
+    print('Tic')
+    if crip == 0:
+            LeshaCoin += raz
+    elif crip == 1:
+            SmeshiСoin += raz
+    elif crip == 2:
+            GrafiCoin += raz
+    elif crip == 3:
+            Blin_ya_ftoroy_coin += raz
 
 def buizness_zarp():
     for i in ids_users:
@@ -55,8 +38,9 @@ def buizness_zarp():
             if have_buizness == 1: pay = 20
             elif have_buizness == 2: pay = 35
             send_data(i,'balance',get_data(i,'balance')+pay)
-def run_buizness():
+def run_buizness_and_cripts():
     schedule.every().hour.do(buizness_zarp) 
+    schedule.every().hour.do(cripts_ob) 
     while True: 
         schedule.run_pending() 
         time.sleep(1)

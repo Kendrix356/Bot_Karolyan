@@ -10,10 +10,10 @@ item7 = KeyboardButton("Моя биография👶")
 item8 = KeyboardButton("Топ😎")
 item9 = KeyboardButton("Заявка модератору🗎")
 
-item1_st = KeyboardButton("Казино")
+item1_st = KeyboardButton("Казино🤑")
 item2_st = KeyboardButton("Загс")
 item3_st = KeyboardButton("Квартира(самая дорогая)")
-item4_st = KeyboardButton("Магазин")
+item4_st = KeyboardButton("Магазин🏪")
 item5_st = KeyboardButton("Карта🃏")
 
 

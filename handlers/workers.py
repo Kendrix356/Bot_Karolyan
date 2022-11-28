@@ -51,50 +51,32 @@ async def Работы(callback_query: types.CallbackQuery, state: FSMContext):
         await msg2.delete()
         await msg3.delete()
         await dp.send_message(callback_query.from_user.id, "Начинаем!",reply_markup=kb_stop_work)
-
-        for i in range(10):
-            print(i)
-            if i == 0:
-                async with state.proxy() as data:
-                    working = data['working']
-                answer = 0
-            else:
-                async with state.proxy() as data:
-                    working = data['working']
-                    answer = data['answer']
+        for i  in range(10):
+            async with state.proxy() as data:
+                working = data['working']
+                data['answer'] = 0
+                if i == 0: data['right_answer'] = 0
             if working == 1:
                 situaded, correct_word, markup = generate_translate()
                 translate_msg = await dp.send_message(callback_query.from_user.id, f"Выбери верный перевод слова '{words_english[correct_word]}' ", reply_markup=markup)
                 async with state.proxy() as data:
                     data['situaded'] = situaded
                 await asyncio.sleep(5)
-                if answer != 0 and working == 1:
+                async with state.proxy() as data:
+                    answer = data['answer']
+                if answer == 0:
+                    print('Time_error')
+                    answer = 'Time_error'
+                    await translate_msg.delete()
+                    time_error = await dp.send_message(callback_query.from_user.id, "Время вышло)=")
+                    await asyncio.sleep(1)
+                    await time_error.delete()
 
-                    if answer == 'Right':
-                        right_answer+=1
-                        await translate_msg.delete()
-                        right = await dp.send_message(callback_query.from_user.id, "Правильно(+10💎)")
-                        await asyncio.sleep(1)
-                        await right.delete()
-
-                    elif answer == 'Error':
-                        await translate_msg.delete()
-                        error = await dp.send_message(callback_query.from_user.id, "Неправильно")
-                        await asyncio.sleep(1)
-                        await error.delete()
-
-                    else:
-                        answer = 'Time_error'
-                        async with state.proxy() as data:
-                            data['answer'] = answer 
-                        await translate_msg.delete()
-                        time_error = await dp.send_message(callback_query.from_user.id, "Время вышло)=")
-                        await asyncio.sleep(1)
-                        await time_error.delete()
-
-                    if i == 9:
-                        await dp.send_message(callback_query.from_user.id, f"Вот и поработали) У тебя {right_answer} из 10 правильных. Ты заработал {right_answer*10}💎")
-                        send_data(callback_query.from_user.id, 'balance', get_data(callback_query.from_user.id, 'balance') + right_answer*10)
+            if i == 9:
+                async with state.proxy() as data:
+                    right_answer = data['right_answer']
+                await dp.send_message(callback_query.from_user.id, f"Вот и поработали) У тебя {right_answer} из 10 правильных. Ты заработал {right_answer*10}💎",reply_markup=kb_income)
+                send_data(callback_query.from_user.id, 'balance', get_data(callback_query.from_user.id, 'balance') + right_answer*10)
     if code == 2:
         pass
     if code == 3:
@@ -115,67 +97,56 @@ async def Работы(callback_query: types.CallbackQuery, state: FSMContext):
         line5_S = '00000000000'
         item_stop = KeyboardButton("Перезагрузить", callback_data='network_1')
         markup = InlineKeyboardMarkup(row_width=2).add(item_stop)
-        flag = 0
-        state = 0
+        async with state.proxy() as data:
+            data['state'] = 0
         i = 0
-        while(True): 
-            if state == 0:   
-                state = 1
+        while(True):
+            async with state.proxy() as data:
+                state = data['state']
+            if state == 0:
+                i+=1   
+                async with state.proxy() as data:
+                    data['state'] = 1
                 l = random.randint(1,5)
+                line1_L = list('00000000000')
+                line2_L = list('00000000000')
+                line3_L = list('00000000000')
+                line4_L = list('00000000000')
+                line5_L = list('00000000000')
                 if l == 1:
-                    line1_L = list('00000000000')
                     n = random.randint(0,10)
                     if line1_L[n] == '0':
                         line1_L[n] = '1'
                     line1_S = " ".join(line1_L)
                     line1_S = line1_S.replace(" ","")
                 elif l == 2:
-                    line2_L = list('00000000000')
                     n = random.randint(0,10)
                     if line2_L[n] == '0':
                         line2_L[n] = '1'
                     line2_S = " ".join(line2_L)
                     line2_S = line2_S.replace(" ","")
                 elif l == 3:
-                    line3_L = list('00000000000')
                     n = random.randint(0,10)
                     if line3_L[n] == '0':
                         line3_L[n] = '1'
                     line3_S = " ".join(line3_L)
                     line3_S = line3_S.replace(" ","")
                 elif l == 4:
-                    line4_L = list('00000000000')
                     n = random.randint(0,10)
                     if line4_L[n] == '0':
                         line4_L[n] = '1'
                     line4_S = " ".join(line4_L)
                     line4_S = line4_S.replace(" ","")
                 elif l == 5:
-                    line5_L = list('00000000000')
                     n = random.randint(0,10)
                     if line5_L[n] == '0':
                         line5_L[n] = '1'
                     line5_S = " ".join(line5_L)
                     line5_S = line5_S.replace(" ","")
-                if i != 0:
+                if i != 1:
                     await serever_msg.edit_text(f"{line1_S}\n{line2_S}\n{line3_S}\n{line4_S}\n{line5_S}\n",reply_markup=markup)
                 else:
-                    i = 1
                     serever_msg = await dp.send_message(callback_query.from_user.id, f"{line1_S}\n{line2_S}\n{line3_S}\n{line4_S}\n{line5_S}\n",reply_markup=markup)
-            if flag == 1:
-                print('Press')
-                line1_L = list('00000000000')
-                line2_L = list('00000000000')
-                line3_L = list('00000000000')
-                line4_L = list('00000000000')
-                line5_L = list('00000000000')
-                async with state.proxy() as data:
-                    data['flag'] = 0
-                state = 0
-            time = random.randint(5, 15)
-            await asyncio.sleep(time)
-            async with state.proxy() as data:
-                flag = data['flag']
 
 
 #@bot.callback_query_handler(lambda c: c.data and c.data.startswith('translate_'))
@@ -188,23 +159,32 @@ async def Переводчик(callback_query: types.CallbackQuery, state: FSMCo
 
     async with state.proxy() as data:
         situaded = data['situaded']
-        answer = data['answer']
+        data['answer'] = 1
 
     if code == situaded :
-        answer = 'Right'
+        print('Right')
+        await translate_msg.delete()
+        right = await dp.send_message(callback_query.from_user.id, "Правильно(+10💎)")
+        await asyncio.sleep(1)
+        await right.delete()
         async with state.proxy() as data:
-            data['answer'] = answer
+            data['right_answer'] += 1
     else:
-        answer = 'Error'
-        async with state.proxy() as data:
-            data['answer'] = answer         
+        print('Error')
+        await translate_msg.delete()
+        error = await dp.send_message(callback_query.from_user.id, "Неправильно")
+        await asyncio.sleep(1)
+        await error.delete()    
 
 #@bot.callback_query_handler(lambda c: c.data and c.data.startswith('network_'))
 async def Сетевой_админ(callback_query: types.CallbackQuery, state: FSMContext):
 
     await dp.answer_callback_query(callback_query.id)
+    print('Press')
     async with state.proxy() as data:
-        data['flag'] = 1
+        data['state'] = 0
+    time = random.randint(5, 15)
+    await asyncio.sleep(time)
 
 def reg_handlers_school(bot: Dispatcher):
     bot.register_callback_query_handler(Работы,lambda c: c.data and c.data.startswith('job_'))

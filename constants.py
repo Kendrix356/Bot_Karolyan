@@ -8,10 +8,10 @@ ids_users = [1278533043,  # Николай Борисов
 
 ids_admines = [1278533043]  # Николай Борисов         
 
-LeshaCoin = 400
-SmeshiСoin = 400
-GrafiCoin = 400
-Blin_ya_ftoroy_coin = 400
+LeshaCoin = 200
+SmeshiСoin = 200
+GrafiCoin = 200
+Blin_ya_ftoroy_coin = 200
 
 situaded = 0
 answer = 0
