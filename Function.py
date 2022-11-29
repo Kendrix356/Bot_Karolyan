@@ -107,3 +107,15 @@ def generate_translate():
         markup = InlineKeyboardMarkup(row_width=2).add(item1, item2, item3) 
     
     return situaded, correct_word, markup
+
+def inventory_add(id,data):
+    l = list(get_data(id,'inventory'))
+    l.sort(reverse=True)
+    count = 0
+    for item in l:
+        if item == '0':
+            count += 1
+    elemet = 8 - count
+    l[elemet] = str(data)
+    data = ''.join(l)
+    send_data(id,'inventory',data)

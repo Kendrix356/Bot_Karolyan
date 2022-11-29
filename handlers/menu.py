@@ -53,10 +53,18 @@ async def Главное_меню(message, state: FSMContext):
                 await dp.send_message(message.from_user.id, 'Если ты хочешь пожертвовать немного денег на развитие бота, нажми сюда -> https://clck.ru/32WjF3')    
 
             elif message.text == "Магазин🏪":
-                item1 = InlineKeyboardButton("Бизнес", callback_data='mag_1')
-                item2 = InlineKeyboardButton("Бустеры", callback_data='mag_2')
-                item3 = InlineKeyboardButton("Коллекционные предметы", callback_data='mag_3')
-                markup = InlineKeyboardMarkup(row_width=2).add(item1, item2, item3)
+                location = get_data(message.from_user.id, 'location')
+                if location == 'Столица':
+                    item1 = InlineKeyboardButton("Машины", callback_data='mag_4')
+                    item2 = InlineKeyboardButton("Квартиры, дома", callback_data='mag_5')
+                    markup = InlineKeyboardMarkup(row_width=2).add(item1, item2)
+                elif location == 'Верхний город' or location == 'Нижний город': 
+                    pass
+                else:
+                    item1 = InlineKeyboardButton("Бизнес", callback_data='mag_1')
+                    item2 = InlineKeyboardButton("Бустеры", callback_data='mag_2')
+                    item3 = InlineKeyboardButton("Коллекционные предметы", callback_data='mag_3')
+                    markup = InlineKeyboardMarkup(row_width=2).add(item1, item2, item3)
                 mes = await dp.send_message(message.from_user.id, 'Выбери категорию:',reply_markup=markup)
                 async with state.proxy() as data:
                     data['mes_mag'] = mes

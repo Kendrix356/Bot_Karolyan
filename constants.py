@@ -87,6 +87,6 @@ kuda_mes = ['7А', '7Б', '7В', '7Г','Столица','Верхний горо
 
 buizness = ['None', 'Автомат с едой', 'Кофейня']
 
-things_mag = ['None','Трофей(1750)','Трофей(3000)','Трофей Михаила','Lada Granta','Газель','Hyundai Solaris','Mitsubishi Outlander']
+things_mag = ['None','Трофей(1750)','Трофей(3000)','Трофей Михаила','Lada Granta', 'Lada Vesta','BMV 5','Mercedes W222','Audi A4','Tesla Model X']
 
 
