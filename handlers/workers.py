@@ -103,10 +103,10 @@ async def Работы(callback_query: types.CallbackQuery, state: FSMContext):
         while(True):
             async with state.proxy() as data:
                 state = data['state']
+            async with state.proxy() as data:
+                data['state'] = 1
             if state == 0:
-                i+=1   
-                async with state.proxy() as data:
-                    data['state'] = 1
+                i+=1  
                 l = random.randint(1,5)
                 line1_L = list('00000000000')
                 line2_L = list('00000000000')
@@ -147,7 +147,6 @@ async def Работы(callback_query: types.CallbackQuery, state: FSMContext):
                     await serever_msg.edit_text(f"{line1_S}\n{line2_S}\n{line3_S}\n{line4_S}\n{line5_S}\n",reply_markup=markup)
                 else:
                     serever_msg = await dp.send_message(callback_query.from_user.id, f"{line1_S}\n{line2_S}\n{line3_S}\n{line4_S}\n{line5_S}\n",reply_markup=markup)
-
 
 #@bot.callback_query_handler(lambda c: c.data and c.data.startswith('translate_'))
 async def Переводчик(callback_query: types.CallbackQuery, state: FSMContext):

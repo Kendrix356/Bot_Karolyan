@@ -47,7 +47,15 @@ async def Биография(callback_query: types.CallbackQuery):
             ), parse_mode="HTML"
             )
     if code == 5:
-        await dp.send_message(callback_query.from_user.id, 'Какое же имущество у тебя есть!',reply_markup=kb_have)
-
+        await dp.send_message(callback_query.from_user.id, 'Вот твой инвентарь:')
+        inventory = get_data(callback_query.from_user.id,'inventory')
+        for i in range(8):
+            if inventory[i] == '0':
+                if i == 0:
+                    await dp.send_message(callback_query.from_user.id, 'У тебя пустой инвентарь)')
+                break
+            else:
+                await dp.send_message(callback_query.from_user.id, f'Элемент {i}: {things_mag[int(inventory[i])]}')
+            
 def reg_handlers_biography(bot: Dispatcher):
     bot.register_callback_query_handler(Биография,lambda c: c.data and c.data.startswith('keyboaord2_button'))

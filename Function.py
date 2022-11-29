@@ -76,7 +76,7 @@ def get_data(id, column):
 def reg(user_id):
     conn = sqlite3.connect('us.db')
     cursor = conn.cursor()
-    cursor.execute(f"INSERT INTO `users` (`user_id`,`name`,`balance`,`love`,`join_data`,`promo1`,`promo2`,`leshaСoin`,`smeshiСoin`,`grafiCoin`,`b_ya_v_Coin`,`register`,`location`,`buizness`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (user_id, "None", 500, 1, datetime.datetime.now(), 1, 1, 0, 0, 0, 0, 1, "7Б",0))
+    cursor.execute(f"INSERT INTO `users` (`user_id`,`name`,`balance`,`love`,`join_data`,`promo1`,`promo2`,`leshaСoin`,`smeshiСoin`,`grafiCoin`,`b_ya_v_Coin`,`register`,`location`,`buizness`,`inventory`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (user_id, "None", 500, 1, datetime.datetime.now(), 1, 1, 0, 0, 0, 0, 1, "7Б",0,"00000000"))
     conn.commit()
 
 def generate_translate():

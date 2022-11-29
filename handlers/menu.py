@@ -66,7 +66,7 @@ async def Главное_меню(message, state: FSMContext):
                 item2 = InlineKeyboardButton("Сколкьо денег?💸", callback_data='keyboaord2_button2')
                 item3 = InlineKeyboardButton("Сколько использовал(а) промокодов?🎫", callback_data='keyboaord2_button3')
                 item4 = InlineKeyboardButton("Склько крипты?💹", callback_data='keyboaord2_button4')
-                item5 = KeyboardButton("Мое имущество🚗", callback_data='keyboaord2_button5')
+                item5 = KeyboardButton("Мой инвентарь🚗", callback_data='keyboaord2_button5')
                 markup = InlineKeyboardMarkup(row_width=2).add(item1, item2, item3, item4, item5)
                 await dp.send_message(message.from_user.id, 'Выбирете что нужно(=', reply_markup=markup)
 
