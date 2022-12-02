@@ -100,7 +100,7 @@ async def Едим(callback_query: types.CallbackQuery, state: FSMContext):
 
     if code == 1:
         wait_sec = random.randint(10,30)
-        wait = await dp.send_message(callback_query.from_user.id, f'Через {wait_sec} секунд ты приедешь(=')
+        wait = await dp.send_message(callback_query.from_user.id, f'Через {wait_sec} секунд ты приедешь(=',reply_markup=types.ReplyKeyboardRemove())
         await asyncio.sleep(wait_sec)
         await wait.delete()
         send_data(callback_query.from_user.id, 'balance', get_data(callback_query.from_user.id,'balance')-pay)

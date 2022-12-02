@@ -208,79 +208,49 @@ async def Магазин_продажа(callback_query: types.CallbackQuery, sta
         pass
     elif code == 5:
         pay = 2000
-        if balance >= pay:
-            await dp.send_message(callback_query.from_user.id, f'Куплено (-{pay})')
-            inventory_add(callback_query.from_user.id,1)
-        else:
-            await dp.send_message(callback_query.from_user.id, 'Нету деняг)=')
-            pay = 0
+        element = 1
     elif code == 6:
         pay = 3250
-        if balance >= pay:
-            await dp.send_message(callback_query.from_user.id, f'Куплено (-{pay})')
-            inventory_add(callback_query.from_user.id,2)
-        else:
-            await dp.send_message(callback_query.from_user.id, 'Нету деняг)=')
-            pay = 0
+        element = 2
     elif code == 7:
         pay = 12750
-        if balance >= pay:
-            await dp.send_message(callback_query.from_user.id, f'Куплено (-{pay})')
-            inventory_add(callback_query.from_user.id,3)
-        else:
-            await dp.send_message(callback_query.from_user.id, 'Нету деняг)=')
-            pay = 0
+        element = 3
     elif code == 8:
         pay = 130000
-        if balance >= pay:
-            await dp.send_message(callback_query.from_user.id, f'Куплено (-{pay})')
-            inventory_add(callback_query.from_user.id,4)
-        else:
-            await dp.send_message(callback_query.from_user.id, 'Нету деняг)=')
-            pay = 0
+        element = 4
     elif code == 9:
         pay = 175000
-        if balance >= pay:
-            await dp.send_message(callback_query.from_user.id, f'Куплено (-{pay})')
-            inventory_add(callback_query.from_user.id,5)
-        else:
-            await dp.send_message(callback_query.from_user.id, 'Нету деняг)=')
-            pay = 0
+        element = 5
     elif code == 10:
         pay = 420000
-        if balance >= pay:
-            await dp.send_message(callback_query.from_user.id, f'Куплено (-{pay})')
-            inventory_add(callback_query.from_user.id,6)
-        else:
-            await dp.send_message(callback_query.from_user.id, 'Нету деняг)=')
-            pay = 0
+        element = 6
     elif code == 11:
         pay = 365000
-        if balance >= pay:
-            await dp.send_message(callback_query.from_user.id, f'Куплено (-{pay})')
-            inventory_add(callback_query.from_user.id,7)
-        else:
-            await dp.send_message(callback_query.from_user.id, 'Нету деняг)=')
-            pay = 0
+        element = 7
     elif code == 12:
         pay = 400000
-        if balance >= pay:
-            await dp.send_message(callback_query.from_user.id, f'Куплено (-{pay})')
-            inventory_add(callback_query.from_user.id,8)
-        else:
-            await dp.send_message(callback_query.from_user.id, 'Нету деняг)=')
-            pay = 0
+        element = 8
     elif code == 13:
         pay = 850000
-        if balance >= pay:
-            await dp.send_message(callback_query.from_user.id, f'Куплено (-{pay})')
-            inventory_add(callback_query.from_user.id,9)
-        else:
-            await dp.send_message(callback_query.from_user.id, 'Нету деняг)=')
-            pay = 0
+        element = 9
+
     elif code == 0:
         await dp.send_message(callback_query.from_user.id, 'Ок')
 
+    if balance >= pay:
+        try:
+            inventory_add(callback_query.from_user.id,element)
+            error = 0
+        except:
+            error = 1
+            pay = 0
+            await dp.send_message(callback_query.from_user.id, 'У тебя полный инвентарь')
+        if error == 0:
+            await dp.send_message(callback_query.from_user.id, f'Куплено (-{pay})')
+    else:
+        await dp.send_message(callback_query.from_user.id, 'Нету деняг)=')
+        pay = 0
+        
     if code != 0:
         send_data(callback_query.from_user.id, 'balance', get_data(callback_query.from_user.id, 'balance') - pay)
 

@@ -78,7 +78,7 @@ async def Работы(callback_query: types.CallbackQuery, state: FSMContext):
                 await dp.send_message(callback_query.from_user.id, f"Вот и поработали) У тебя {right_answer} из 10 правильных. Ты заработал {right_answer*10}💎",reply_markup=kb_income)
                 send_data(callback_query.from_user.id, 'balance', get_data(callback_query.from_user.id, 'balance') + right_answer*10)
     if code == 2:
-        pass
+        await dp.send_message(callback_query.from_user.id, "Пока вакансий таксистом нет)=")
     if code == 3:
         msg1 = await dp.send_message(callback_query.from_user.id, f"Ты выбрал работу - <i>Сетевой Администратор</i>")
         await asyncio.sleep(1)
