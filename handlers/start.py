@@ -33,7 +33,7 @@ async def Приветствие(message: types.Message):
                 elif get_data(message.from_user.id,'register') == 0:
                     location = get_data(message.from_user.id, 'location')
                     if location == 'Столица': await dp.send_message(message.from_user.id, "Привет!", reply_markup=kb_menu_st)
-                    elif location == 'Верхний город' or location == 'Нижний город': await dp.send_message(message.from_user.id, "Привет!", reply_markup=kb_menu)
+                    elif location == 'Верхний город' or location == 'Нижний город': await dp.send_message(message.from_user.id, "Привет!", reply_markup=kb_menu_gr)
                     else: await dp.send_message(message.from_user.id, "Привет!", reply_markup=kb_menu)
             except:
                 reg(message.from_user.id)
@@ -50,7 +50,7 @@ async def Регистрация(message: types.Message, state: FSMContext):
     await state.finish()
     location = get_data(message.from_user.id, 'location')
     if location == 'Столица': await dp.send_message(message.from_user.id, "Спасибки)", reply_markup=kb_menu_st)
-    elif location == 'Верхний город' or location == 'Нижний город': await dp.send_message(message.from_user.id, "Спасибки)", reply_markup=kb_menu)
+    elif location == 'Верхний город' or location == 'Нижний город': await dp.send_message(message.from_user.id, "Спасибки)", reply_markup=kb_menu_gr)
     else: await dp.send_message(message.from_user.id, "Спасибки)", reply_markup=kb_menu)
 
 def reg_handlers_start(bot: Dispatcher):

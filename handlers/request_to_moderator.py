@@ -26,7 +26,10 @@ async def Заявка_модеру(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
         data['text'] = message.text
         await dp.send_message(group_id, "@" + message.from_user.username + ": " + data['text'])
-        await dp.send_message(message.from_user.id, 'Все отправила. Жди ответа😁')
+        location = get_data(message.from_user.id, 'location')
+        if location == 'Столица': await dp.send_message(message.from_user.id, "Все отправила. Жди ответа😁", reply_markup=kb_menu_st)
+        elif location == 'Верхний город' or location == 'Нижний город': await dp.send_message(message.from_user.id, "Все отправила. Жди ответа😁)", reply_markup=kb_menu_gr)
+        else: await dp.send_message(message.from_user.id, "Все отправила. Жди ответа😁", reply_markup=kb_menu)
     await state.finish()
 
 def reg_handlers_request_to_moderator(bot: Dispatcher):

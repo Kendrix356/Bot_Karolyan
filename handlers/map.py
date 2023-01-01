@@ -101,13 +101,16 @@ async def Едим(callback_query: types.CallbackQuery, state: FSMContext):
     if code == 1:
         wait_sec = random.randint(10,30)
         wait = await dp.send_message(callback_query.from_user.id, f'Через {wait_sec} секунд ты приедешь(=',reply_markup=types.ReplyKeyboardRemove())
+        status_pred = get_data(callback_query.from_user.id, 'status')
+        send_data(callback_query.from_user.id, 'status', 3)
         await asyncio.sleep(wait_sec)
         await wait.delete()
         send_data(callback_query.from_user.id, 'balance', get_data(callback_query.from_user.id,'balance')-pay)
         send_data(callback_query.from_user.id, 'location', kuda_mes[kuda])
         if kuda_mes[kuda] == 'Столица': await dp.send_message(callback_query.from_user.id, f'Ты приехал) -{pay}💎',reply_markup=kb_menu_st)
-        elif kuda_mes[kuda] == 'Верхний город' or kuda_mes[kuda] == 'Нижний город': await dp.send_message(callback_query.from_user.id, f'Ты приехал) -{pay}💎',reply_markup=kb_menu)
+        elif kuda_mes[kuda] == 'Верхний город' or kuda_mes[kuda] == 'Нижний город': await dp.send_message(callback_query.from_user.id, f'Ты приехал) -{pay}💎',reply_markup=kb_menu_gr)
         else: await dp.send_message(callback_query.from_user.id, f'Ты приехал) -{pay}💎',reply_markup=kb_menu)
+        send_data(callback_query.from_user.id, 'status', status_pred)
     elif code == 2:
         await dp.send_message(callback_query.from_user.id, 'Ок)')
 

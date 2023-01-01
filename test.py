@@ -1,3 +1,2 @@
-a = '123213'
-if a.isdigit():
-    print('yes')
+l = '10.0.0.0.0.0.0.0'
+print(type(l.split('.')))

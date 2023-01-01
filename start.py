@@ -8,7 +8,7 @@ from create_bot import dp,bot
 from handlers import admin_panal
 from handlers import biography
 from handlers import buizness
-from handlers import casino_777
+from handlers import casino
 from handlers import crypto_exchange
 from handlers import magazin
 from handlers import map
@@ -42,7 +42,7 @@ start.reg_handlers_start(bot)
 admin_panal.reg_handlers_admin_panel(bot)
 biography.reg_handlers_biography(bot)
 buizness.reg_handlers_buizness(bot)
-casino_777.reg_handlers_casino_777(bot)
+casino.reg_handlers_casino(bot)
 crypto_exchange.reg_handlers_crypto_exchange(bot)
 magazin.reg_handlers_magazin(bot)
 map.reg_handlers_map(bot)

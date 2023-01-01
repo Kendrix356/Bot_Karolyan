@@ -4,9 +4,7 @@ class Form_name(StatesGroup):
     name = State() 
 class Form_promo(StatesGroup):
     promo = State()  
-class Form_cas777(StatesGroup):
-    stavka = State()
-class Form_crash(StatesGroup):
+class Form_cas(StatesGroup):
     stavka = State()
 class Form_moder(StatesGroup):
     moder = State()

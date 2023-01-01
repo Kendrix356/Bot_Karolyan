@@ -24,13 +24,14 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 async def Главное_меню(message, state: FSMContext):
     #Главное меню
     for i in range(len(ids_users)): 
-        if message.from_user.id == ids_users[i]:
-
+        if message.from_user.id == ids_users[i] and get_data(message.from_user.id,'status') != 3:
+            
             if message.text == "Заработак💰":
                 await dp.send_message(message.from_user.id, 'Есть много способов зароботка:)',reply_markup=kb_income)
             
             elif message.text == "Казино🤑":
-                await dp.send_message(message.from_user.id, 'Во что играть будем?',reply_markup=kb_casino)
+                await dp.send_message(message.from_user.id, 'Ставь ставку!')
+                await Form_cas.stavka.set()
 
             elif message.text == "Карта🃏":
                 photo = open('map.png', 'rb')
@@ -112,7 +113,7 @@ async def Главное_меню(message, state: FSMContext):
                 )
 
             elif message.text == "Заявка модератору🗎":
-                await dp.send_message(message.from_user.id, 'Напиши причину того, что тебе не понравилось в поведении админов🤔.')
+                await dp.send_message(message.from_user.id, 'Напиши причину того, что тебе не понравилось в поведении админов🤔.',reply_markup=types.ReplyKeyboardRemove())
                 await Form_moder.moder.set()
             
             elif message.text == "Работы💼":
@@ -127,7 +128,9 @@ async def Главное_меню(message, state: FSMContext):
             elif message.text == "Бизнес":
                 have_buizness = get_data(message.from_user.id, 'buizness')
                 if have_buizness == 0:
-                    await dp.send_message(message.from_user.id, "Ты пока не имешь бизнеса, если ты хочешь купить, тебе в магазин")
+                    item1 = types.InlineKeyboardButton("Как работает бизнес?", callback_data='pod_2')
+                    markup = InlineKeyboardMarkup(row_width=2).add(item1)
+                    await dp.send_message(message.from_user.id, "Ты пока не имешь бизнеса, если ты хочешь купить, тебе в магазин",reply_markup=markup)
                 else:
                     if buizness[have_buizness] == 'Автомат с едой': 
                         photo_b = open('buizness1.jpg', 'rb')
@@ -158,13 +161,8 @@ async def Главное_меню(message, state: FSMContext):
                 ), parse_mode="HTML"
                 )
 
-            elif message.text == "Автомат🎰":
-                await dp.send_message(message.from_user.id, 'Ставь ставку!')
-                await Form_cas777.stavka.set()
-
-            # elif message.text == "Краш📈":
-            #     await dp.send_message(message.from_user.id, 'Ставь ставку!')
-            #     #await Form_crash.other.set()
+            elif message.text == "Загс":
+                await dp.send_message(message.from_user.id, 'Ты еще не дорос!(:')
                 
             elif message.text == "Купить валюту":
                 item1 = types.InlineKeyboardButton("ЛешаКоин", callback_data='min1')
@@ -212,7 +210,7 @@ async def Главное_меню(message, state: FSMContext):
             elif message.text == "Назад":
                 location = get_data(message.from_user.id, 'location')
                 if location == 'Столица': await dp.send_message(message.from_user.id, "Ок", reply_markup=kb_menu_st)
-                elif location == 'Верхний город' or location == 'Нижний город': await dp.send_message(message.from_user.id, "Ок", reply_markup=kb_menu)
+                elif location == 'Верхний город' or location == 'Нижний город': await dp.send_message(message.from_user.id, "Ок", reply_markup=kb_menu_gr)
                 else: await dp.send_message(message.from_user.id, "Ок", reply_markup=kb_menu)
 
             elif message.text == "Завершить":
@@ -220,7 +218,7 @@ async def Главное_меню(message, state: FSMContext):
                     data['working'] = 0
                 location = get_data(message.from_user.id, 'location')
                 if location == 'Столица': await dp.send_message(message.from_user.id, "Ок", reply_markup=kb_menu_st)
-                elif location == 'Верхний город' or location == 'Нижний город': await dp.send_message(message.from_user.id, "Ок", reply_markup=kb_menu)
+                elif location == 'Верхний город' or location == 'Нижний город': await dp.send_message(message.from_user.id, "Ок", reply_markup=kb_menu_gr)
                 else: await dp.send_message(message.from_user.id, "Ок", reply_markup=kb_menu)    
 
             else:

@@ -45,10 +45,13 @@ def run_buizness_and_cripts():
         schedule.run_pending() 
         time.sleep(1)
 
-def send_data(id, column, data_edit):
+def send_data(id, column, data_edit, table = 1):
     conn = sqlite3.connect("us.db", check_same_thread=False)
     cursor = conn.cursor()
-    select_wh_user_id = f"""Update users set {column} = ? where user_id = ?"""
+    if table == 1:
+        select_wh_user_id = f"""Update users set {column} = ? where user_id = ?"""
+    elif table == 2:
+        select_wh_user_id = f"""Update Doms_and_kv set {column} = ? where name = ?"""
     data = (data_edit, id)
     # print(select_wh_user_id)
     # print(data)
@@ -56,19 +59,30 @@ def send_data(id, column, data_edit):
     conn.commit()
     cursor.close()
 
-def get_data(id, column):
+def get_data(id, column, table = 1):
     global data
     conn = sqlite3.connect("us.db", check_same_thread=False)
     cursor = conn.cursor()
-    select_wh_user_id = """select * FROM users where user_id = ?"""
-    cursor.execute(select_wh_user_id, (id,))
-    send_data = cursor.fetchall()
-    for i in range(len(Table)):
-        if (column == Table[i]):
-            # print(Table[i])
-            for row in send_data:
-                data = row[i]
-            # print(data)
+    if table == 1:
+        select_wh_user_id = """select * FROM users where user_id = ?"""
+        cursor.execute(select_wh_user_id, (id,))
+        send_data = cursor.fetchall()
+        for i in range(len(Table_users)):
+            if (column == Table_users[i]):
+                # print(Table[i])
+                for row in send_data:
+                    data = row[i]
+                # print(data)
+    elif table == 2:
+        select_wh_user_id = """select * FROM Doms_and_kv where name = ?"""
+        cursor.execute(select_wh_user_id, (id,))
+        send_data = cursor.fetchall()
+        for i in range(len(Table_dom_and_kv)):
+            if (column == Table_dom_and_kv[i]):
+                # print(Table[i])
+                for row in send_data:
+                    data = row[i]
+                # print(data)
     conn.commit()
     cursor.close()
     return data
@@ -76,7 +90,7 @@ def get_data(id, column):
 def reg(user_id):
     conn = sqlite3.connect('us.db')
     cursor = conn.cursor()
-    cursor.execute(f"INSERT INTO `users` (`user_id`,`name`,`balance`,`love`,`join_data`,`promo1`,`promo2`,`leshaСoin`,`smeshiСoin`,`grafiCoin`,`b_ya_v_Coin`,`register`,`location`,`buizness`,`inventory`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (user_id, "None", 500, 1, datetime.datetime.now(), 1, 1, 0, 0, 0, 0, 1, "7Б",0,"00000000"))
+    cursor.execute(f"INSERT INTO `users` (`user_id`,`name`,`balance`,`love`,`join_data`,`promo1`,`promo2`,`leshaСoin`,`smeshiСoin`,`grafiCoin`,`b_ya_v_Coin`,`register`,`location`,`buizness`,`inventory`,`busters`,`status`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (user_id, "None", 500, 1, datetime.datetime.now(), 1, 1, 0, 0, 0, 0, 1, "7Б",0,"0.0.0.0.0.0.0.0",0,1))
     conn.commit()
 
 def generate_translate():
@@ -108,14 +122,22 @@ def generate_translate():
     
     return situaded, correct_word, markup
 
-def inventory_add(id,data):
+def inventory_add(id,text):
     l = list(get_data(id,'inventory'))
-    l.sort(reverse=True)
     count = 0
     for item in l:
         if item == '0':
             count += 1
     elemet = 8 - count
-    l[elemet] = str(data)
+    elemet = elemet * 2
+    l[elemet] = str(text)
+    data = ''.join(l)
+    send_data(id,'inventory',data)
+
+def inventory_delete(id,text):
+    l = list(get_data(id,'inventory'))
+    elemet = l.index(str(text))
+    l.pop(elemet)
+    l.insert(elemet,'0')
     data = ''.join(l)
     send_data(id,'inventory',data)
