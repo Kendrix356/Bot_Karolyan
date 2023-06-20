@@ -11,10 +11,9 @@ item8 = KeyboardButton("Топ😎")
 item9 = KeyboardButton("Заявка модератору🗎")
 
 item1_st = KeyboardButton("Казино🤑")
-item2_st = KeyboardButton("Загс")
-item3_st = KeyboardButton("Квартира(самая дорогая)")
-item4_st = KeyboardButton("Магазин🏪")
-item5_st = KeyboardButton("Карта🃏")
+item2_st = KeyboardButton("Столичная квартира")
+item3_st = KeyboardButton("Магазин🏪")
+item4_st = KeyboardButton("Карта🃏")
 
 item1_gr = KeyboardButton("Дом 1")
 item2_gr = KeyboardButton("Дом 2")
@@ -29,12 +28,8 @@ item9_gr = KeyboardButton("Квартира 2")
 item1_income = KeyboardButton("Работы💼") #инлайн
 item2_income = KeyboardButton("Бизнес")
 item3_income = KeyboardButton("Промокоды🎂")
-item4_income = KeyboardButton("КриптоБиржа💹")
 
 item1_buiznes = KeyboardButton("Бета")
-
-item1_cripto = KeyboardButton("Купить валюту")
-item2_cripto = KeyboardButton("Продать валюту")
 
 item_back = KeyboardButton("Назад")
 
@@ -53,13 +48,12 @@ kb_menu.add(item1, item2, item3)
 kb_menu.row(item4, item5, item6, item7)
 kb_menu.row(item8, item9)
 kb_menu_st.add(item1_st, item2_st)
-kb_menu_st.row(item3_st, item4_st, item5_st)
+kb_menu_st.row(item3_st, item4_st)
 kb_menu_gr.add(item1_gr, item2_gr, item3_gr)
 kb_menu_gr.row(item4_gr, item5_gr, item6_gr)
 kb_menu_gr.row(item7_gr, item8_gr, item9_gr)
-kb_income.add(item1_income, item2_income, item3_income, item4_income, item_back)
+kb_income.add(item1_income, item2_income, item3_income, item_back)
 kb_buiznes.add(item1_buiznes, item_back)
-kb_cripto.add(item1_cripto, item2_cripto, item_back)
 kb_stop_work.add(item_stop)
 
 if __name__ == "__main__":

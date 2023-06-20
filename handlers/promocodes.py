@@ -48,7 +48,15 @@ async def Промокоды(message: types.Message, state: FSMContext):
                 if message.from_user.id == 1143067536:
                     await dp.send_message(message.chat.id, 'Это же твоя рефералка, схитрить хотела?') 
                 else:
-                    await dp.send_message(message.chat.id, 'Ты уже использовал такой промокод')  
+                    await dp.send_message(message.chat.id, 'Ты уже использовал такой промокод')
+        elif data['promo'] == 'urarelis':
+            if get_data(message.from_user.id, 'promo3') == 1:
+                await dp.send_message(message.chat.id, 'Поздравляю ты выйграл 250💎')
+                bal = get_data(message.chat.id, 'balance') + 250
+                send_data(message.chat.id, 'balance', bal)
+                send_data(message.chat.id, 'promo3', 0)
+            else:  
+                await dp.send_message(message.chat.id, 'Ты уже использовал такой промокод')
         else:
             await dp.send_message(message.chat.id, 'Такого промокода нету😢')
     await state.finish()

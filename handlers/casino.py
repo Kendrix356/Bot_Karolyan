@@ -28,13 +28,23 @@ async def Ставка(message: types.Message, state: FSMContext):
                 item1 = types.InlineKeyboardButton("Автомат777", callback_data='cas_1')
                 item2 = types.InlineKeyboardButton("Коинфлип", callback_data='cas_2')
                 item3 = types.InlineKeyboardButton("Башня", callback_data='cas_3')
-                markup = InlineKeyboardMarkup(row_width=1).add(item1, item2, item3)
-                await dp.send_message(message.chat.id, 'Ставка: '+ data['stavka'] + '\nВо что играть будем?',reply_markup=markup)
+                item4 = types.InlineKeyboardButton("Отмена", callback_data='cas_4')
+                markup = InlineKeyboardMarkup(row_width=1).add(item1, item2, item3, item4)
+                casino_mes = await dp.send_message(message.chat.id, 'Ставка: '+ data['stavka'] + '\nВо что играть будем?',reply_markup=markup)
+                async with state.proxy() as data:
+                    data['casino_mes'] = casino_mes
             else:
                 await dp.send_message(message.chat.id, 'Нету деняг)=')
+                await state.finish()
+        elif data['stavka'] == "отмена" or data['stavka'] == "Отмена":
+            location = get_data(message.from_user.id, 'location')
+            if location == 'Столица': await dp.send_message(message.from_user.id, "Окей", reply_markup=kb_menu_st)
+            elif location == 'Верхний город' or location == 'Нижний город': await dp.send_message(message.from_user.id, "Окей", reply_markup=kb_menu_gr)
+            else: await dp.send_message(message.from_user.id, "Окей", reply_markup=kb_menu)
+            await state.finish()
         else:
             await dp.send_message(message.chat.id, "Это должна быть цифра")
-        await state.finish()
+            await Form_cas.stavka.set()
 
 async def Игра_казино(callback_query: types.CallbackQuery, state: FSMContext):
     await dp.answer_callback_query(callback_query.id)
@@ -44,6 +54,11 @@ async def Игра_казино(callback_query: types.CallbackQuery, state: FSMC
 
     bal = get_data(callback_query.from_user.id,'balance')
 
+    async with state.proxy() as data:
+        casino_mes = data['casino_mes']
+
+    await casino_mes.delete()
+    
     async with state.proxy() as data:
         if code == 1:
             await dp.send_message(callback_query.from_user.id, 'Поехали🍀')
@@ -108,6 +123,11 @@ async def Игра_казино(callback_query: types.CallbackQuery, state: FSMC
             pass
         elif code == 3:
             pass
+        elif code == 4:
+            location = get_data(callback_query.from_user.id, 'location')
+            if location == 'Столица': await dp.send_message(callback_query.from_user.id, "Окей", reply_markup=kb_menu_st)
+            elif location == 'Верхний город' or location == 'Нижний город': await dp.send_message(message.from_user.id, "Окей", reply_markup=kb_menu_gr)
+            else: await dp.send_message(callback_query.from_user.id, "Окей", reply_markup=kb_menu)
     await state.finish()
 
 def reg_handlers_casino(bot: Dispatcher):

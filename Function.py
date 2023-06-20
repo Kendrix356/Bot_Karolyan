@@ -38,9 +38,9 @@ def buizness_zarp():
             if have_buizness == 1: pay = 20
             elif have_buizness == 2: pay = 35
             send_data(i,'balance',get_data(i,'balance')+pay)
+
 def run_buizness_and_cripts():
     schedule.every().hour.do(buizness_zarp) 
-    schedule.every().hour.do(cripts_ob) 
     while True: 
         schedule.run_pending() 
         time.sleep(1)
@@ -90,7 +90,7 @@ def get_data(id, column, table = 1):
 def reg(user_id):
     conn = sqlite3.connect('us.db')
     cursor = conn.cursor()
-    cursor.execute(f"INSERT INTO `users` (`user_id`,`name`,`balance`,`love`,`join_data`,`promo1`,`promo2`,`leshaСoin`,`smeshiСoin`,`grafiCoin`,`b_ya_v_Coin`,`register`,`location`,`buizness`,`inventory`,`busters`,`status`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (user_id, "None", 500, 1, datetime.datetime.now(), 1, 1, 0, 0, 0, 0, 1, "7Б",0,"0.0.0.0.0.0.0.0",0,1))
+    cursor.execute(f"INSERT INTO `users` (`user_id`,`name`,`balance`,`love`,`join_data`,`promo1`,`promo2`,`promo3`,`register`,`location`,`buizness`,`inventory`,`buster`,`status`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (user_id, "None", 500, 1, datetime.datetime.now(), 1, 1, 1, 1, "7Б",0,"0.0.0.0.0.0.0.0",0,1))
     conn.commit()
 
 def generate_translate():

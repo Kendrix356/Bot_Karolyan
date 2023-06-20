@@ -30,7 +30,7 @@ async def Главное_меню(message, state: FSMContext):
                 await dp.send_message(message.from_user.id, 'Есть много способов зароботка:)',reply_markup=kb_income)
             
             elif message.text == "Казино🤑":
-                await dp.send_message(message.from_user.id, 'Ставь ставку!')
+                await dp.send_message(message.from_user.id, 'Ставь ставку!\nЕсли ты хочешь отменить, просто напиши "отмена"', reply_markup=types.ReplyKeyboardRemove())
                 await Form_cas.stavka.set()
 
             elif message.text == "Карта🃏":
@@ -74,9 +74,8 @@ async def Главное_меню(message, state: FSMContext):
                 item1 = InlineKeyboardButton("Как зовут?🧐", callback_data='keyboaord2_button1')
                 item2 = InlineKeyboardButton("Сколкьо денег?💸", callback_data='keyboaord2_button2')
                 item3 = InlineKeyboardButton("Сколько использовал(а) промокодов?🎫", callback_data='keyboaord2_button3')
-                item4 = InlineKeyboardButton("Склько крипты?💹", callback_data='keyboaord2_button4')
-                item5 = KeyboardButton("Мой инвентарь🚗", callback_data='keyboaord2_button5')
-                markup = InlineKeyboardMarkup(row_width=2).add(item1, item2, item3, item4, item5)
+                item4 = KeyboardButton("Мой инвентарь🚗", callback_data='keyboaord2_button4')
+                markup = InlineKeyboardMarkup(row_width=2).add(item1, item2, item3, item4)
                 await dp.send_message(message.from_user.id, 'Выбирете что нужно(=', reply_markup=markup)
 
             elif message.text == "Топ😎":
@@ -93,7 +92,10 @@ async def Главное_меню(message, state: FSMContext):
                 for i in range(3):
                     conn = sqlite3.connect("us.db", check_same_thread=False)
                     cursor = conn.cursor()
-                    cursor.execute("""select * FROM users where balance = ?""", moneys[i])
+                    try: cursor.execute("""select * FROM users where balance = ?""", moneys[i])
+                    except:
+                        await dp.send_message(message.from_user.id, 'Что-то пошло не так ¯\_(ツ)_/¯')
+                        break
                     data = cursor.fetchall()
                     print(data)
                     for row in data:
@@ -144,42 +146,9 @@ async def Главное_меню(message, state: FSMContext):
                 await dp.send_message(message.from_user.id,'Напиши промоко_дик')
                 await Form_promo.promo.set()
 
-            elif message.text == "КриптоБиржа💹":
-                global LeshaCoin
-                global SmeshiСoin
-                global GrafiCoin
-                global Blin_ya_ftoroy_coin
-
-                await dp.send_message(message.from_user.id, "Курс:", reply_markup=kb_cripto)
-                await message.answer(
-                fmt.text(
-                fmt.text("ЛешаКоин: ",LeshaCoin),
-                fmt.text("СмешиКоин: ",SmeshiСoin),
-                fmt.text("ГрафиКоин: ",GrafiCoin),
-                fmt.text("Блин я второй коин: ",Blin_ya_ftoroy_coin),
-                sep="\n"
-                ), parse_mode="HTML"
-                )
-
             elif message.text == "Загс":
                 await dp.send_message(message.from_user.id, 'Ты еще не дорос!(:')
-                
-            elif message.text == "Купить валюту":
-                item1 = types.InlineKeyboardButton("ЛешаКоин", callback_data='min1')
-                item2 = types.InlineKeyboardButton("СмешиКоин", callback_data='min2')
-                item3 = types.InlineKeyboardButton("ГрафиКоин", callback_data='min3')
-                item4 = types.InlineKeyboardButton("Блин я второй Коин", callback_data='min4')
-                markup = InlineKeyboardMarkup(row_width=2).add(item1, item2, item3, item4)
-                await dp.send_message(message.from_user.id, 'Выбирай:', reply_markup=markup)
 
-            elif message.text == "Продать валюту":
-                item1 = types.InlineKeyboardButton("ЛешаКоин", callback_data='pls1')
-                item2 = types.InlineKeyboardButton("СмешиКоин", callback_data='pls2')
-                item3 = types.InlineKeyboardButton("ГрафиКоин", callback_data='pls3')
-                item4 = types.InlineKeyboardButton("Блин я второй Коин", callback_data='pls4')
-                markup = InlineKeyboardMarkup(row_width=2).add(item1, item2, item3, item4)
-                await dp.send_message(message.from_user.id, 'Выбирай:', reply_markup=markup)
-                
             elif 'Нах' in message.text or 'нах' in message.text:
                 await dp.send_message(message.from_user.id, 'только после тебя')
             elif 'Баранина' in message.text or 'баранина' in message.text:

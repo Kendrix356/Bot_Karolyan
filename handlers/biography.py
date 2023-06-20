@@ -36,17 +36,6 @@ async def Биография(callback_query: types.CallbackQuery):
         val = get_data(callback_query.from_user.id,'promo1') + get_data(callback_query.from_user.id,'promo2')
         await dp.send_message(callback_query.from_user.id, "Ты использовал " + str(val) + " промокод/а/ов")
     if code == 4:
-        await dp.send_message(callback_query.from_user.id, "Вот сколько у тебя крипты:")
-        await dp.send_message(callback_query.from_user.id,
-            fmt.text(
-            fmt.text("ЛешаКоин: ", get_data(callback_query.from_user.id,'leshaСoin')),
-            fmt.text("СмешиКоин: ", get_data(callback_query.from_user.id,'smeshiСoin')),
-            fmt.text("ГрафиКоин: ", get_data(callback_query.from_user.id,'grafiCoin')),
-            fmt.text("Блин я второй коин: ", get_data(callback_query.from_user.id,'b_ya_v_Coin')),
-            sep="\n"
-            ), parse_mode="HTML"
-            )
-    if code == 5:
         inventory = get_data(callback_query.from_user.id,'inventory').split('.')
         for i in range(8):
             if inventory[i*2] == '0':

@@ -4,7 +4,8 @@ nums = ['0', '0', '0', '0', '1', '1', '1', '2','2', '3']
 
 ids_users = [1278533043,  # Николай Борисов
              1330356014,  # Полина Морозова
-             1019471738]  # Вика
+             1019471738,
+             5022309821]  # Вика
 
 ids_admines = [1278533043]  # Николай Борисов         
 
@@ -74,7 +75,7 @@ words_russian = ['Яблоко', #1
                 'Договоренность', 
                 'Скучающий по дому']
 
-Table_users = ['id','user_id','name','balance','love','join_data','promo1','promo2','leshaСoin','smeshiСoin','grafiCoin','b_ya_v_Coin','register','location','buizness','inventory','buster','status']
+Table_users = ['id','user_id','name','balance','love','join_data','promo1','promo2','promo3','register','location','buizness','inventory','buster','status']
 Table_dom_and_kv = ['id','name','owner','data_buy','pay']
 
 Raspis = ['Биология(14:00-14:40)\nАнгл.язык(14:55-15:35)\nФизкультура(15:50-16:30)\nЛитература(16:40-17:20)\nАлгебра(17:30-18:10)\nАлгебра(18:20-19:00)',

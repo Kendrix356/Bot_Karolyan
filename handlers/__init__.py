@@ -2,7 +2,6 @@ from handlers import admin_panal
 from handlers import biography
 from handlers import buizness
 from handlers import casino
-from handlers import crypto_exchange
 from handlers import magazin
 from handlers import map
 from handlers import menu
