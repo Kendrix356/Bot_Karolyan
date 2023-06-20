@@ -126,7 +126,7 @@ async def Игра_казино(callback_query: types.CallbackQuery, state: FSMC
         elif code == 4:
             location = get_data(callback_query.from_user.id, 'location')
             if location == 'Столица': await dp.send_message(callback_query.from_user.id, "Окей", reply_markup=kb_menu_st)
-            elif location == 'Верхний город' or location == 'Нижний город': await dp.send_message(message.from_user.id, "Окей", reply_markup=kb_menu_gr)
+            elif location == 'Верхний город' or location == 'Нижний город': await dp.send_message(callback_query.from_user.id, "Окей", reply_markup=kb_menu_gr)
             else: await dp.send_message(callback_query.from_user.id, "Окей", reply_markup=kb_menu)
     await state.finish()
 
