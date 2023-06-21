@@ -26,13 +26,11 @@ async def Ставка(message: types.Message, state: FSMContext):
         if data['stavka'].isdigit():
             if get_data(message.chat.id, 'balance') >= int(data['stavka']):
                 item1 = types.InlineKeyboardButton("Автомат777", callback_data='cas_1')
-                item2 = types.InlineKeyboardButton("Коинфлип", callback_data='cas_2')
-                item3 = types.InlineKeyboardButton("Башня", callback_data='cas_3')
-                item4 = types.InlineKeyboardButton("Отмена", callback_data='cas_4')
-                markup = InlineKeyboardMarkup(row_width=1).add(item1, item2, item3, item4)
-                casino_mes = await dp.send_message(message.chat.id, 'Ставка: '+ data['stavka'] + '\nВо что играть будем?',reply_markup=markup)
-                async with state.proxy() as data:
-                    data['casino_mes'] = casino_mes
+                item2 = types.InlineKeyboardButton("Монетка", callback_data='cas_2')
+                item3 = types.InlineKeyboardButton("Отмена", callback_data='cas_3')
+                markup = InlineKeyboardMarkup(row_width=1).add(item1, item2, item3)
+                await dp.send_message(message.chat.id, 'Ставка: '+ data['stavka'] + '\nВо что играть будем?',reply_markup=markup)
+                await state.finish()
             else:
                 await dp.send_message(message.chat.id, 'Нету деняг)=')
                 await state.finish()
@@ -54,11 +52,6 @@ async def Игра_казино(callback_query: types.CallbackQuery, state: FSMC
 
     bal = get_data(callback_query.from_user.id,'balance')
 
-    async with state.proxy() as data:
-        casino_mes = data['casino_mes']
-
-    await casino_mes.delete()
-    
     async with state.proxy() as data:
         if code == 1:
             await dp.send_message(callback_query.from_user.id, 'Поехали🍀')
@@ -117,13 +110,29 @@ async def Игра_казино(callback_query: types.CallbackQuery, state: FSMC
                 time.sleep(1)
                 await dp.send_message(callback_query.from_user.id, choice[2])
                 time.sleep(1)
-            await dp.send_message(callback_query.from_user.id, 'Ваш баланс ' + str(bal) + '💎')
+            location = get_data(callback_query.from_user.id, 'location')
+            if location == 'Столица': await dp.send_message(callback_query.from_user.id, 'Ваш баланс ' + str(bal) + '💎', reply_markup=kb_menu_st)
+            elif location == 'Верхний город' or location == 'Нижний город': await dp.send_message(callback_query.from_user.id, 'Ваш баланс ' + str(bal) + '💎', reply_markup=kb_menu_gr)
+            else: await dp.send_message(callback_query.from_user.id, 'Ваш баланс ' + str(bal) + '💎', reply_markup=kb_menu)
             send_data(callback_query.from_user.id, 'balance', bal)
         elif code == 2:
-            pass
+            await dp.send_message(callback_query.from_user.id, 'Поехали🍀\nВаша сторона - решка')
+            time.sleep(1)
+            random_value = random.choice([True, False])
+            if random_value == True: 
+                await dp.send_message(callback_query.from_user.id, 'Выпала решка\nПобеда')
+                bal = bal + 2 * int(data['stavka'])
+                time.sleep(1)
+            else:
+                await dp.send_message(callback_query.from_user.id, 'Выпал орел\nПроигрыш')
+                bal = bal - int(data['stavka'])
+                time.sleep(1)
+            location = get_data(callback_query.from_user.id, 'location')
+            if location == 'Столица': await dp.send_message(callback_query.from_user.id, 'Ваш баланс ' + str(bal) + '💎', reply_markup=kb_menu_st)
+            elif location == 'Верхний город' or location == 'Нижний город': await dp.send_message(callback_query.from_user.id, 'Ваш баланс ' + str(bal) + '💎', reply_markup=kb_menu_gr)
+            else: await dp.send_message(callback_query.from_user.id, 'Ваш баланс ' + str(bal) + '💎', reply_markup=kb_menu)
+            send_data(callback_query.from_user.id, 'balance', bal)
         elif code == 3:
-            pass
-        elif code == 4:
             location = get_data(callback_query.from_user.id, 'location')
             if location == 'Столица': await dp.send_message(callback_query.from_user.id, "Окей", reply_markup=kb_menu_st)
             elif location == 'Верхний город' or location == 'Нижний город': await dp.send_message(callback_query.from_user.id, "Окей", reply_markup=kb_menu_gr)

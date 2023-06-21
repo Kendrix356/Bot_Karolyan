@@ -14,8 +14,8 @@ from aiogram.utils import executor
 
 thread_buizness = Thread(target=run_buizness_and_cripts)
 thread_buizness.start()
-
 start.reg_handlers_start(bot)
+
 admin_panal.reg_handlers_admin_panel(bot)
 biography.reg_handlers_biography(bot)
 buizness.reg_handlers_buizness(bot)

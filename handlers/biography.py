@@ -33,7 +33,7 @@ async def Биография(callback_query: types.CallbackQuery):
     if code == 2:
         await dp.send_message(callback_query.from_user.id, "У тебя " + str(get_data(callback_query.from_user.id, 'balance')) + "💎")
     if code == 3:
-        val = get_data(callback_query.from_user.id,'promo1') + get_data(callback_query.from_user.id,'promo2')
+        val = get_data(callback_query.from_user.id,'promo1') + get_data(callback_query.from_user.id,'promo2') + get_data(callback_query.from_user.id,'promo3')
         await dp.send_message(callback_query.from_user.id, "Ты использовал " + str(val) + " промокод/а/ов")
     if code == 4:
         inventory = get_data(callback_query.from_user.id,'inventory').split('.')

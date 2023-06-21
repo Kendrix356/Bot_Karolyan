@@ -27,34 +27,34 @@ async def Промокоды(message: types.Message, state: FSMContext):
         data['promo'] = message.text
 
         if data['promo'] == 'eRop1n':
-            if get_data(message.from_user.id, 'promo1') == 1:
+            if get_data(message.from_user.id, 'promo1') == 0:
                 await dp.send_message(message.chat.id, 'Поздравляю ты выйграл 100💎')
                 bal = get_data(message.chat.id, 'balance') + 100
                 send_data(message.chat.id, 'balance', bal)
-                send_data(message.chat.id, 'promo1', 0)
+                send_data(message.chat.id, 'promo1', 1)
             else:  
                 await dp.send_message(message.chat.id, 'Ты уже использовал такой промокод')  
 
         elif data['promo'] == 'Suzanne_well_done':
-            if get_data(message.from_user.id, 'promo2') == 1 and message.from_user.id != 1143067536:
+            if get_data(message.from_user.id, 'promo2') == 0 and message.from_user.id != 1143067536:
                 await dp.send_message(message.chat.id, 'Поздравляю ты выйграл 150💎.А также ты поддержал Сюзану денежкой, так как это реферальный код))')
                 bal = get_data(message.chat.id, 'balance') + 150
                 bal_s = get_data(1143067536, 'balance') + 150
 
                 send_data(message.chat.id, 'balance', bal)
                 send_data(1143067536, 'balance', bal_s)
-                send_data(message.chat.id, 'promo2', 0)
+                send_data(message.chat.id, 'promo2', 1)
             else:
                 if message.from_user.id == 1143067536:
                     await dp.send_message(message.chat.id, 'Это же твоя рефералка, схитрить хотела?') 
                 else:
                     await dp.send_message(message.chat.id, 'Ты уже использовал такой промокод')
         elif data['promo'] == 'urarelis':
-            if get_data(message.from_user.id, 'promo3') == 1:
+            if get_data(message.from_user.id, 'promo3') == 0:
                 await dp.send_message(message.chat.id, 'Поздравляю ты выйграл 250💎')
                 bal = get_data(message.chat.id, 'balance') + 250
                 send_data(message.chat.id, 'balance', bal)
-                send_data(message.chat.id, 'promo3', 0)
+                send_data(message.chat.id, 'promo3', 1)
             else:  
                 await dp.send_message(message.chat.id, 'Ты уже использовал такой промокод')
         else:
