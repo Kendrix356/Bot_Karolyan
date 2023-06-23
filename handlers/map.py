@@ -27,11 +27,7 @@ async def Поехать_в_область(callback_query: types.CallbackQuery, 
     if code.isdigit():
         code = int(code)
 
-    async with state.proxy() as data:
-        mes = data['mes']
-        await state.finish()
-        
-    await mes.delete()
+    await callback_query.message.delete()
 
     if code == 1:
         item1 = types.InlineKeyboardButton("7А", callback_data='go_dif0')
@@ -45,11 +41,6 @@ async def Поехать_в_область(callback_query: types.CallbackQuery, 
         item2 = types.InlineKeyboardButton("Нижний", callback_data='go_dif6')
         markup = InlineKeyboardMarkup(row_width=2).add(item1, item2)
         mes = await dp.send_message(callback_query.from_user.id, 'В какой город?', reply_markup=markup)
-        async with state.proxy() as data:
-            data['mes'] = mes
-
-    async with state.proxy() as data:
-        data['mes'] = mes
 
 #@bot.callback_query_handler(lambda c: c.data and c.data.startswith('go_dif'))
 async def Ехать_или_нет(callback_query: types.CallbackQuery, state: FSMContext):
@@ -58,11 +49,7 @@ async def Ехать_или_нет(callback_query: types.CallbackQuery, state: F
     if code.isdigit():
         code = int(code)
 
-    async with state.proxy() as data:
-        mes = data['mes']
-        await state.finish()
-
-    await mes.delete()
+    await callback_query.message.delete()
 
     item1 = types.InlineKeyboardButton("Поехали", callback_data='poex1')
     item2 = types.InlineKeyboardButton("Отмена", callback_data='poex2')
@@ -77,7 +64,6 @@ async def Ехать_или_нет(callback_query: types.CallbackQuery, state: F
         else:
             mes = await dp.send_message(callback_query.from_user.id, f'Стоимость поездки = {str(pay)}💎', reply_markup=markup)
             async with state.proxy() as data:
-                data['mes'] = mes
                 data['kuda'] = kuda
                 data['pay'] = pay
     else:
@@ -91,12 +77,11 @@ async def Едим(callback_query: types.CallbackQuery, state: FSMContext):
         code = int(code)
 
     async with state.proxy() as data:
-        mes = data['mes']
         kuda = data['kuda']
         pay = data['pay']
     await state.finish()
 
-    await mes.delete()
+    await callback_query.message.delete()
 
     if code == 1:
         wait_sec = random.randint(10,30)

@@ -28,10 +28,7 @@ async def Магазин(callback_query: types.CallbackQuery, state: FSMContext)
     if code.isdigit():
         code = int(code)
 
-    async with state.proxy() as data:
-        mes = data['mes_mag']
-    
-    await mes.delete()
+    await callback_query.message.delete()
 
     if code == 1:
         item1 = InlineKeyboardButton('Автомат с едой', callback_data='vesh_01')
@@ -57,8 +54,6 @@ async def Магазин(callback_query: types.CallbackQuery, state: FSMContext)
         item3 = InlineKeyboardButton('Квартира в столице!', callback_data='vesh_30')
         markup = InlineKeyboardMarkup(row_width=1).add(item1, item2, item3)
     mes = await dp.send_message(callback_query.from_user.id, 'Выбери что нужно:', reply_markup=markup)
-    async with state.proxy() as data:
-        data['mes_mag'] = mes
 
 #@bot.callback_query_handler(lambda c: c.data and c.data.startswith('class_m_'))
 async def Распределение_классов(callback_query: types.CallbackQuery, state: FSMContext):
@@ -67,10 +62,7 @@ async def Распределение_классов(callback_query: types.Callba
     if code.isdigit():
         code = int(code)
 
-    async with state.proxy() as data:
-        mes = data['mes_mag']
-
-    await mes.delete()
+    await callback_query.message.delete()
 
     if code == 1:
         item1 = InlineKeyboardButton('Lada Granta', callback_data='vesh_08')
@@ -109,8 +101,6 @@ async def Распределение_классов(callback_query: types.Callba
         item8 = InlineKeyboardButton('Квартира2', callback_data='vesh_29')
         markup = InlineKeyboardMarkup(row_width=3).add(item1, item2, item3, item4, item5, item6, item7, item8)
         mes = await dp.send_message(callback_query.from_user.id, 'Выбери что нужно:', reply_markup=markup)
-    async with state.proxy() as data:
-        data['mes_mag'] = mes
 
 #@bot.callback_query_handler(lambda c: c.data and c.data.startswith('vesh_'))
 async def Магазин_описание(callback_query: types.CallbackQuery, state: FSMContext):
@@ -118,10 +108,8 @@ async def Магазин_описание(callback_query: types.CallbackQuery, s
     code = callback_query.data[5:7]
     if code.isdigit():
         code = int(code)
-    async with state.proxy() as data:
-        mes = data['mes_mag']
 
-    await mes.delete()
+    await callback_query.message.delete()
 
     #Бизнесы
     if code == 1:
@@ -402,6 +390,7 @@ async def Магазин_продажа(callback_query: types.CallbackQuery, sta
         element = 26
 
     elif code == 0:
+        pay = 0
         await dp.send_message(callback_query.from_user.id, 'Ок')
 
     if balance >= pay:

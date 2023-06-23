@@ -34,6 +34,7 @@ async def Главное_меню(message, state: FSMContext):
                 await Form_cas.stavka.set()
 
             elif message.text == "Карта🃏":
+                print(message.reply_markup.keyboard)
                 photo = open('map.png', 'rb')
                 await dp.send_photo(message.chat.id, photo=photo, caption="Вот карта)")
                 item1 = types.InlineKeyboardButton("Другая облать", callback_data='map_go1')
@@ -41,8 +42,6 @@ async def Главное_меню(message, state: FSMContext):
                 item3 = types.InlineKeyboardButton("Город(жилье)", callback_data='map_go3')
                 markup = InlineKeyboardMarkup(row_width=2).add(item1, item2, item3)
                 mes = await dp.send_message(message.from_user.id, 'Ты находишься в <i>' + str(get_data(message.from_user.id, 'location')) + '</i>'+ '\nЕсли хочешь переехать нажми кнопку)', reply_markup=markup)
-                async with state.proxy() as data:
-                    data['mes'] = mes
 
             elif message.text == "Школа🏫":
                 item1 = InlineKeyboardButton("Расписание", callback_data='keyboaord_school1')
@@ -67,8 +66,6 @@ async def Главное_меню(message, state: FSMContext):
                     item3 = InlineKeyboardButton("Коллекционные предметы", callback_data='mag_3')
                     markup = InlineKeyboardMarkup(row_width=2).add(item1, item2, item3)
                 mes = await dp.send_message(message.from_user.id, 'Выбери категорию:',reply_markup=markup)
-                async with state.proxy() as data:
-                    data['mes_mag'] = mes
 
             elif message.text == "Моя биография👶":
                 item1 = InlineKeyboardButton("Как зовут?🧐", callback_data='keyboaord2_button1')
