@@ -2,9 +2,12 @@ import random
 import time
 import datetime
 import schedule, time
-from constants import *
 import sqlite3
+from constants import *
+from objects import *
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from create_bot import dp,bot
+
 
 def remove_char(s):
     result = s[1 : -1]
@@ -39,7 +42,7 @@ def buizness_zarp():
             elif have_buizness == 2: pay = 35
             send_data(i,'balance',get_data(i,'balance')+pay)
 
-def run_buizness_and_cripts():
+def run_buizness_and_crpts():
     schedule.every().hour.do(buizness_zarp) 
     while True: 
         schedule.run_pending() 
@@ -141,3 +144,28 @@ def inventory_delete(id,text):
     l.insert(elemet,'0')
     data = ''.join(l)
     send_data(id,'inventory',data)
+
+# Функция для создания игрового поля
+def create_game_board():
+    game_board = []
+    for _ in range(5):
+        row = ['✅', '✅', '✅']
+        row[random.randint(0, 2)] = '💣'
+        game_board.append(row)
+    return game_board
+
+
+def display_game_board(game_board, current_level):
+    board_str = f'Башня:\n'
+    for i, row in reversed(list(enumerate(game_board))):
+        # print(i+1,current_level,row)
+        if i+1 <= current_level:
+            row_str = f'{i+1}.0x - {row}\n'
+            board_str += row_str
+    return board_str
+
+async def backmarkup(mess, chat_id):
+    location = get_data(chat_id, 'location')
+    if location == 'Столица': await dp.send_message(chat_id, mess, reply_markup=kb_menu_st)
+    elif location == 'Верхний город' or location == 'Нижний город': await dp.send_message(chat_id, mess, reply_markup=kb_menu_gr)
+    else: await dp.send_message(chat_id, mess, reply_markup=kb_menu)

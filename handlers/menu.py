@@ -34,7 +34,6 @@ async def Главное_меню(message, state: FSMContext):
                 await Form_cas.stavka.set()
 
             elif message.text == "Карта🃏":
-                print(message.reply_markup.keyboard)
                 photo = open('map.png', 'rb')
                 await dp.send_photo(message.chat.id, photo=photo, caption="Вот карта)")
                 item1 = types.InlineKeyboardButton("Другая облать", callback_data='map_go1')
@@ -94,7 +93,6 @@ async def Главное_меню(message, state: FSMContext):
                         await dp.send_message(message.from_user.id, 'Что-то пошло не так ¯\_(ツ)_/¯')
                         break
                     data = cursor.fetchall()
-                    print(data)
                     for row in data:
                         user.append(row[2])
                         balance.append(row[3])

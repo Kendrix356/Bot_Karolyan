@@ -12,7 +12,7 @@ from handlers import (
 from threading import Thread
 from aiogram.utils import executor
 
-thread_buizness = Thread(target=run_buizness_and_cripts)
+thread_buizness = Thread(target=run_buizness_and_crpts)
 thread_buizness.start()
 start.reg_handlers_start(bot)
 

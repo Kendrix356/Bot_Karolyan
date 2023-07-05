@@ -127,12 +127,12 @@ async def Магазин_описание(callback_query: types.CallbackQuery, s
         item1 = InlineKeyboardButton('Купить', callback_data='kup_03')
         item2 = InlineKeyboardButton('Отмена', callback_data='kup_0')
         markup = InlineKeyboardMarkup(row_width=2).add(item1, item2)
-        mes = await dp.send_message(callback_query.from_user.id, 'Бустер: <b>Скидка 20% на такси</b> \nХарактеристеки:\nДействует: 1 час\nЦена: 300', reply_markup=markup) 
+        mes = await dp.send_message(callback_query.from_user.id, 'Бустер: <b>Скидка 20% на такси</b> \nХарактеристеки:\nДействует: 1 час\nЦена: 300\n<b>ВНИМАНИЕ, бустер действует до начала след. часа</b>', reply_markup=markup) 
     elif code == 4:
         item1 = InlineKeyboardButton('Купить', callback_data='kup_04')
         item2 = InlineKeyboardButton('Отмена', callback_data='kup_0')
         markup = InlineKeyboardMarkup(row_width=2).add(item1, item2)
-        mes = await dp.send_message(callback_query.from_user.id, 'Бустер: <b>Увелечение работы бизнеса на 25%</b> \nХарактеристеки:\nДействует: 1 день\nЦена: 450', reply_markup=markup) 
+        mes = await dp.send_message(callback_query.from_user.id, 'Бустер: <b>Увелечение работы бизнеса на 25%</b> \nХарактеристеки:\nДействует: 24 часа\nЦена: 450\n<b>ВНИМАНИЕ, бустер действует до начала след. часа (после 23-ого)</b>', reply_markup=markup) 
     #Трофеи
     elif code == 5:
         item1 = InlineKeyboardButton('Купить', callback_data='kup_05')
@@ -271,9 +271,6 @@ async def Магазин_описание(callback_query: types.CallbackQuery, s
         markup = InlineKeyboardMarkup(row_width=2).add(item1, item2)
         mes = await dp.send_message(callback_query.from_user.id, 'Жилье: <b>Квартира(Столица)</b> \nХарактеристеки:\nКачество: 11/10.\nЦена: 1.800.000', reply_markup=markup)
 
-    async with state.proxy() as data:
-        data['mes_mag'] = mes
-
 #@bot.callback_query_handler(lambda c: c.data and c.data.startswith('kup_'))
 async def Магазин_продажа(callback_query: types.CallbackQuery, state: FSMContext):
     await dp.answer_callback_query(callback_query.id)
@@ -281,10 +278,7 @@ async def Магазин_продажа(callback_query: types.CallbackQuery, sta
     if code.isdigit():
         code = int(code)
 
-    async with state.proxy() as data:
-        mes = data['mes_mag']
-
-    await mes.delete()
+    await callback_query.message.delete()
 
     balance = get_data(callback_query.from_user.id, 'balance')
     element = 0
@@ -306,10 +300,10 @@ async def Магазин_продажа(callback_query: types.CallbackQuery, sta
             pay = 0
     elif code == 3:
         pay = 300
-        pass
+        send_data(callback_query.from_user.id, 'buster', 1)
     elif code == 4:
         pay = 450
-        pass
+        send_data(callback_query.from_user.id, 'buster', 224)
     elif code == 5:
         pay = 2000
         element = 1
