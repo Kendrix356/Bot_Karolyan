@@ -6,7 +6,7 @@ import sqlite3
 from constants import *
 from objects import *
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from create_bot import dp,bot
+from create_bot import dp
 
 
 def remove_char(s):
@@ -15,24 +15,6 @@ def remove_char(s):
 
 def is_even(number):
     return number % 0.1 == 0
-    
-def cripts_ob():
-    global LeshaCoin
-    global SmeshiСoin
-    global GrafiCoin
-    global Blin_ya_ftoroy_coin
-
-    crip = random.randint(0,3)
-    raz = random.uniform(-10, 10)
-    print('Tic')
-    if crip == 0:
-            LeshaCoin += raz
-    elif crip == 1:
-            SmeshiСoin += raz
-    elif crip == 2:
-            GrafiCoin += raz
-    elif crip == 3:
-            Blin_ya_ftoroy_coin += raz
 
 def buizness_zarp():
     for i in ids_users:
@@ -164,7 +146,7 @@ def display_game_board(game_board, current_level):
             board_str += row_str
     return board_str
 
-async def backmarkup(mess, chat_id):
+async def backmarkup(chat_id, mess):
     location = get_data(chat_id, 'location')
     if location == 'Столица': await dp.send_message(chat_id, mess, reply_markup=kb_menu_st)
     elif location == 'Верхний город' or location == 'Нижний город': await dp.send_message(chat_id, mess, reply_markup=kb_menu_gr)

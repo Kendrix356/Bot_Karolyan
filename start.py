@@ -3,7 +3,7 @@ from objects import *
 from Function import *
 from fsm import *
 
-from create_bot import dp,bot
+from create_bot import bot
 
 from handlers import (
     biography, admin_panal, buizness, casino, magazin,
