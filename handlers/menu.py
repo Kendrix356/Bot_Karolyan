@@ -17,7 +17,7 @@ async def Главное_меню(message, state: FSMContext):
     for i in range(len(ids_users)): 
         if chat_id == ids_users[i] and get_data(chat_id,'status') != 3:
             
-            if message.text == 'Заработак💰':
+            if message.text == 'Заработок💰':
                 await dp.send_message(chat_id, "Есть много способов зароботка:)",reply_markup=kb_income)
             
             elif message.text =='Казино🤑':
@@ -25,7 +25,7 @@ async def Главное_меню(message, state: FSMContext):
                 await Form_cas.stavka.set()
 
             elif message.text == 'Карта🃏':
-                photo = open('map.png', 'rb')
+                photo = open("map.png", 'rb')
                 await dp.send_photo(chat_id, photo=photo, caption="Вот карта)")
                 item1 = types.InlineKeyboardButton("Другая облать", callback_data='map_go1')
                 item2 = types.InlineKeyboardButton("Столица", callback_data='go_dif4')
@@ -50,16 +50,25 @@ async def Главное_меню(message, state: FSMContext):
                 else:
                     item1 = InlineKeyboardButton("Бизнес", callback_data='mag_1')
                     item2 = InlineKeyboardButton("Бустеры", callback_data='mag_2')
-                    # item3 = InlineKeyboardButton("Коллекционные предметы", callback_data='mag_3')
-                    markup = InlineKeyboardMarkup(row_width=2).add(item1, item2)
+                    item3 = InlineKeyboardButton("Коллекционные предметы", callback_data='mag_3')
+                    markup = InlineKeyboardMarkup(row_width=2).add(item1, item2, item3)
                 await dp.send_message(chat_id, "Выбери категорию:",reply_markup=markup)
+            
+            elif message.text == 'Столичная квартира':
+                item1 = InlineKeyboardButton("Купить", callback_data='kup_14')
+                item2 = InlineKeyboardButton("Отмена", callback_data='kup_00')
+                markup = InlineKeyboardMarkup(row_width=2).add(item1, item2)
+                await dp.send_message(chat_id, "Жилье: <b>Квартира(Столица)</b> \nХарактеристеки:\nКачество: 11/10.\nЦена: 1.800.000", reply_markup=markup)
 
             elif message.text == 'Моя биография👶':
                 item1 = InlineKeyboardButton("Как зовут?🧐", callback_data='keyboaord2_button1')
-                item2 = InlineKeyboardButton("Сколкьо денег?💸", callback_data='keyboaord2_button2')
+                item2 = InlineKeyboardButton("Сколько денег?💸", callback_data='keyboaord2_button2')
                 item3 = InlineKeyboardButton("Сколько использовал(а) промокодов?🎫", callback_data='keyboaord2_button3')
                 item4 = KeyboardButton("Мой инвентарь🚗", callback_data='keyboaord2_button4')
-                markup = InlineKeyboardMarkup(row_width=2).add(item1, item2, item3, item4)
+                markup = InlineKeyboardMarkup(row_width=2)
+                markup.add(item1, item2)
+                markup.add(item3)
+                markup.add(item4)
                 await dp.send_message(chat_id, "Выбирете что нужно(=", reply_markup=markup)
 
             elif message.text == 'Топ😎':
@@ -97,7 +106,7 @@ async def Главное_меню(message, state: FSMContext):
                 ), parse_mode='HTML'
                 )
 
-            elif message.text == 'Заявка модератору🗎':
+            elif message.text == 'Заявка модератору📝':
                 await dp.send_message(chat_id, "Напиши причину того, что тебе не понравилось в поведении админов🤔.",reply_markup=types.ReplyKeyboardRemove())
                 await Form_moder.moder.set()
             

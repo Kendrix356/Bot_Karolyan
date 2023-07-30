@@ -22,10 +22,10 @@ async def Магазин(callback_query: types.CallbackQuery):
         item1 = InlineKeyboardButton('Автомат с едой', callback_data='vesh_01')
         item2 = InlineKeyboardButton('Кофейня', callback_data='vesh_02')
         markup = InlineKeyboardMarkup(row_width=2).add(item1, item2)
-    # elif code == 2:
-    #     item1 = InlineKeyboardButton('Скидка 20% на такси', callback_data='vesh_03')
-    #     item2 = InlineKeyboardButton('Увелечение работы бизнеса на 25%', callback_data='vesh_04')
-    #     markup = InlineKeyboardMarkup(row_width=1).add(item1, item2)
+    elif code == 2:
+        item1 = InlineKeyboardButton('Скидка 20% на такси', callback_data='vesh_03')
+        item2 = InlineKeyboardButton('Увелечение работы бизнеса на 25%', callback_data='vesh_04')
+        markup = InlineKeyboardMarkup(row_width=1).add(item1, item2)
     elif code == 3:
         item1 = InlineKeyboardButton('Трофей(1750)', callback_data='vesh_05')
         item2 = InlineKeyboardButton('Трофей(3000)', callback_data='vesh_06')
@@ -35,8 +35,10 @@ async def Магазин(callback_query: types.CallbackQuery):
         item1 = InlineKeyboardButton('Дешевый класс', callback_data='class_m_1')
         item2 = InlineKeyboardButton('Средний класс', callback_data='class_m_2')
         item3 = InlineKeyboardButton('Дорогой класс', callback_data='class_m_3')
-        markup = InlineKeyboardMarkup(row_width=2).add(item1, item2, item3)     
-    await dp.send_message(chat_id, 'Выбери что нужно:', reply_markup=markup)
+        markup = InlineKeyboardMarkup(row_width=2).add(item1, item2, item3)    
+    if code == 5:
+        await dp.send_message(chat_id, 'Пока квартиры не продаются')
+    else: await dp.send_message(chat_id, 'Выбери что нужно:', reply_markup=markup)
 
 async def Распределение_классов(callback_query: types.CallbackQuery):
     chat_id = callback_query.from_user.id
@@ -75,24 +77,24 @@ async def Магазин_описание(callback_query: types.CallbackQuery):
         item1 = InlineKeyboardButton('Купить', callback_data='kup_01')
         item2 = InlineKeyboardButton('Отмена', callback_data='kup_0')
         markup = InlineKeyboardMarkup(row_width=2).add(item1, item2)
-        await dp.send_message(chat_id, 'Бизнес: <b>Автомат с едой</b> \nХарактеристеки:\nЗаработок в час: 20\nЗаработок в день: 480\nЗаработок после окупа в день: 288\nЦена: 10.000', reply_markup=markup)
+        await dp.send_message(chat_id, 'Бизнес: <b>Автомат с едой</b> \nХарактеристеки:\nЗаработок в час: 20\nЗаработок в день: 480\nЗаработок после окупа в день: 288\nЦена: 14.000', reply_markup=markup)
     elif code == 2:
         item1 = InlineKeyboardButton('Купить', callback_data='kup_02')
         item2 = InlineKeyboardButton('Отмена', callback_data='kup_0')
         markup = InlineKeyboardMarkup(row_width=2).add(item1, item2)
-        await dp.send_message(chat_id, 'Бизнес: <b>Кофейня</b> \nХарактеристеки:\nЗаработок в час: 35\nЗаработок в день: 840\nЗаработок после окупа в день: 504\nЦена: 22.000', reply_markup=markup)
+        await dp.send_message(chat_id, 'Бизнес: <b>Кофейня</b> \nХарактеристеки:\nЗаработок в час: 35\nЗаработок в день: 840\nЗаработок после окупа в день: 504\nЦена: 25.000', reply_markup=markup)
     
-    # #Бустеры
-    # elif code == 3:
-    #     item1 = InlineKeyboardButton('Купить', callback_data='kup_03')
-    #     item2 = InlineKeyboardButton('Отмена', callback_data='kup_0')
-    #     markup = InlineKeyboardMarkup(row_width=2).add(item1, item2)
-    #     await dp.send_message(chat_id, 'Бустер: <b>Скидка 20% на такси</b> \nХарактеристеки:\nДействует: 1 час\nЦена: 300\n<b>ВНИМАНИЕ, бустер действует до начала след. часа</b>', reply_markup=markup) 
-    # elif code == 4:
-    #     item1 = InlineKeyboardButton('Купить', callback_data='kup_04')
-    #     item2 = InlineKeyboardButton('Отмена', callback_data='kup_0')
-    #     markup = InlineKeyboardMarkup(row_width=2).add(item1, item2)
-    #     await dp.send_message(chat_id, 'Бустер: <b>Увелечение работы бизнеса на 25%</b> \nХарактеристеки:\nДействует: 24 часа\nЦена: 450\n<b>ВНИМАНИЕ, бустер действует до начала след. часа (после 23-ого)</b>', reply_markup=markup) 
+    #Бустеры
+    elif code == 3:
+        item1 = InlineKeyboardButton('Купить', callback_data='kup_03')
+        item2 = InlineKeyboardButton('Отмена', callback_data='kup_0')
+        markup = InlineKeyboardMarkup(row_width=2).add(item1, item2)
+        await dp.send_message(chat_id, 'Бустер: <b>Скидка 25% на такси</b> \nХарактеристеки:\nДействует: 1 час\nЦена: 300', reply_markup=markup) 
+    elif code == 4:
+        item1 = InlineKeyboardButton('Купить', callback_data='kup_04')
+        item2 = InlineKeyboardButton('Отмена', callback_data='kup_0')
+        markup = InlineKeyboardMarkup(row_width=2).add(item1, item2)
+        await dp.send_message(chat_id, 'Бустер: <b>Увелечение работы бизнеса на 25%</b> \nХарактеристеки:\nДействует: 24 часа\nЦена: 450', reply_markup=markup) 
     
     #Трофеи
     elif code == 5:
@@ -126,7 +128,7 @@ async def Магазин_описание(callback_query: types.CallbackQuery):
         item1 = InlineKeyboardButton('Купить', callback_data='kup_10')
         item2 = InlineKeyboardButton('Отмена', callback_data='kup_0')
         markup = InlineKeyboardMarkup(row_width=2).add(item1, item2)
-        await dp.send_message(chat_id, 'Машина: <b>BMV 5</b> \nХарактеристеки:\nМощность: 450 лс.\nРасход: 10л.(100км)\nМакс. Скорость: 240 км/ч\nЦена: 420.000', reply_markup=markup)
+        await dp.send_message(chat_id, 'Машина: <b>BMW 5</b> \nХарактеристеки:\nМощность: 450 лс.\nРасход: 10л.(100км)\nМакс. Скорость: 240 км/ч\nЦена: 420.000', reply_markup=markup)
     elif code == 11:
         item1 = InlineKeyboardButton('Купить', callback_data='kup_11')
         item2 = InlineKeyboardButton('Отмена', callback_data='kup_0')
@@ -142,13 +144,6 @@ async def Магазин_описание(callback_query: types.CallbackQuery):
         item2 = InlineKeyboardButton('Отмена', callback_data='kup_0')
         markup = InlineKeyboardMarkup(row_width=2).add(item1, item2)
         await dp.send_message(chat_id, 'Машина: <b>Tesla Model S Plaid</b> \nХарактеристеки:\nМощность: 1 034 лс.\nРасход: 1 разрядка (600км)\nМакс. Скорость: 322 км/ч\nЦена: 850.000', reply_markup=markup)
-    
-    #Дома и квартиры (Столица)
-    elif code == 14:
-        item1 = InlineKeyboardButton('Купить', callback_data='kup_14')
-        item2 = InlineKeyboardButton('Отмена', callback_data='kup_00')
-        markup = InlineKeyboardMarkup(row_width=2).add(item1, item2)
-        await dp.send_message(chat_id, 'Жилье: <b>Квартира(Столица)</b> \nХарактеристеки:\nКачество: 11/10.\nЦена: 1.800.000', reply_markup=markup)
 
 async def Магазин_продажа(callback_query: types.CallbackQuery):
     chat_id = callback_query.from_user.id
@@ -165,20 +160,19 @@ async def Магазин_продажа(callback_query: types.CallbackQuery):
     pay = 0
     
     if code == 1:
-        pay = 10000
+        pay = 14000
         if balance >= pay: send_data(chat_id, 'buizness', 1)
         else: await dp.send_message(chat_id, 'Нету деняг)=')
     elif code == 2:
-        pay = 22000
+        pay = 25000
         if balance >= pay: send_data(chat_id, 'buizness', 2)
         else: await dp.send_message(chat_id, 'Нету деняг)=')
-    # elif code == 3:
-    #     pay = 300
-    #     send_data(chat_id, 'buster', 1)
-    
-    # elif code == 4:
-    #     pay = 450
-    #     send_data(chat_id, 'buster', 224)
+    elif code == 3:
+        pay = 300
+        send_data(chat_id, 'buster', 1)
+    elif code == 4:
+        pay = 450
+        send_data(chat_id, 'buster', 224)
     elif code in range(5, 14):
         prices = [2000, 3250, 12750, 130000, 175000, 420000, 365000, 400000, 850000]
         element = code-4
@@ -199,7 +193,7 @@ async def Магазин_продажа(callback_query: types.CallbackQuery):
         pay = 0
         await dp.send_message(chat_id, 'Нету деняг)=')
     
-    if code != 0 and error != 1 and pay != 0:
+    if (code != 0 and error != 1 and pay != 0) or (code == 3 or code == 4):
         await dp.send_message(chat_id, f'Куплено (-{pay})')
         send_data(chat_id, 'balance', get_data(chat_id, 'balance') - pay)
 

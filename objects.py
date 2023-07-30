@@ -1,6 +1,6 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
-item1 = KeyboardButton("Заработак💰")
+item1 = KeyboardButton("Заработок💰")
 item2 = KeyboardButton("Казино🤑")
 item3 = KeyboardButton("Карта🃏")
 item4 = KeyboardButton("Школа🏫") #инлайн
@@ -8,7 +8,7 @@ item5 = KeyboardButton("Пожертвование🙏")
 item6 = KeyboardButton("Магазин🏪") #инлайн
 item7 = KeyboardButton("Моя биография👶")
 item8 = KeyboardButton("Топ😎")
-item9 = KeyboardButton("Заявка модератору🗎")
+item9 = KeyboardButton("Заявка модератору📝")
 
 item1_st = KeyboardButton("Казино🤑")
 item2_st = KeyboardButton("Столичная квартира")

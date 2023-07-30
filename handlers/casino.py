@@ -62,7 +62,7 @@ async def Игра_казино(callback_query: types.CallbackQuery):
         if choice == ['1', '1', '1'] or \
            choice == ['2', '2', '2'] or \
            choice == ['3', '3', '3'] or \
-           choice == ['0', '0', '0']: bal += stavka * 6
+           choice == ['0', '0', '0']: bal += stavka * 5
         mes = await dp.send_message(chat_id, 'Барабан:')
         await asyncio.sleep(1)
         await mes.edit_text('Барабан: ' + choice[0])
@@ -76,7 +76,7 @@ async def Игра_казино(callback_query: types.CallbackQuery):
         random_value = random.randrange(1,100)
         if random_value <= 45: 
             await dp.send_message(chat_id, 'Выпала решка\nПобеда')
-            bal =+ 3*stavka
+            bal += 2*stavka
             await asyncio.sleep(1)
         else:
             await dp.send_message(chat_id, 'Выпал орел\nПроигрыш')

@@ -23,6 +23,7 @@ def buizness_zarp():
             if have_buizness == 1: pay = 20
             elif have_buizness == 2: pay = 35
             send_data(i,'balance',get_data(i,'balance')+pay)
+            send_data(i,'buster', 0)
 
 def run_buizness_and_crpts():
     schedule.every().hour.do(buizness_zarp) 

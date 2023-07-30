@@ -13,7 +13,7 @@ async def Промокоды(message: types.Message, state: FSMContext):
     chat_id = message.from_user.id
     async with state.proxy() as data:
         data['promo'] = message.text
-        if data['promo'] == "eRop1n":
+        if data['promo'] == 'eRop1n':
             if get_data(chat_id, 'promo1') == 0:
                 await dp.send_message(chat_id, "Поздравляю ты выйграл 100💎")
                 send_data(chat_id, 'balance', get_data(chat_id, 'balance') + 100)
