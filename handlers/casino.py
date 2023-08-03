@@ -61,15 +61,15 @@ async def Игра_казино(callback_query: types.CallbackQuery):
         choice = random.choices(nums, k=3)
         if choice == ['1', '1', '1'] or \
            choice == ['2', '2', '2'] or \
-           choice == ['3', '3', '3'] or \
-           choice == ['0', '0', '0']: bal += stavka * 5
+           choice == ['3', '3', '3']: bal += stavka * 5
         mes = await dp.send_message(chat_id, 'Барабан:')
+        choiceF = custom_sort(choice)
         await asyncio.sleep(1)
-        await mes.edit_text('Барабан: ' + choice[0])
+        await mes.edit_text('Барабан: ' + choiceF[0])
         await asyncio.sleep(1)
-        await mes.edit_text('Барабан: ' + choice[0] + ' '+ choice[1])
+        await mes.edit_text('Барабан: ' + choiceF[0] + ' '+ choiceF[1])
         await asyncio.sleep(1)
-        await mes.edit_text('Барабан: ' + choice[0] + ' ' + choice[1] + ' ' + choice[2])
+        await mes.edit_text('Барабан: ' + choiceF[0] + ' ' + choiceF[1] + ' ' + choiceF[2])
     elif code == 2:
         await dp.send_message(chat_id, 'Поехали🍀\nВаша сторона - решка')
         await asyncio.sleep(1)

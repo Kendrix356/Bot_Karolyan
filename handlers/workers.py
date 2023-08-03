@@ -6,19 +6,8 @@ from fsm import *
 from create_bot import dp,bot
 
 import asyncio
-import random
-import time
-from threading import Thread
-import sqlite3
-import aiogram.utils.markdown as fmt
-import aiogram.utils.markdown as md
-from aiogram import Bot, types
-from aiogram.types import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup, KeyboardButton
-from aiogram.dispatcher import FSMContext
-from aiogram.contrib.fsm_storage.memory import MemoryStorage
-from aiogram.utils import executor
+from aiogram import types
 from aiogram.dispatcher import Dispatcher
-from aiogram.dispatcher.filters.state import State, StatesGroup
 
 work_data = {}
 
@@ -69,7 +58,7 @@ async def Работы(callback_query: types.CallbackQuery):
                 right_answer = work_data[chat_id]['right_answer']
                 await dp.send_message(chat_id, f"Вот и поработали) У тебя {right_answer} из 10 правильных. Ты заработал {right_answer*10}💎",reply_markup=kb_income)
                 send_data(chat_id, 'balance', get_data(chat_id, 'balance') + right_answer*10)
-                del work_data[chat_id]
+                del work_data[chat_id] 
     if code == 2:
         await dp.send_message(chat_id, "Пока вакансий таксистом нет)=")
     if code == 3:

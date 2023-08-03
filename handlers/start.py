@@ -11,16 +11,14 @@ from aiogram.dispatcher import FSMContext, Dispatcher
 
 async def Приветствие(message: types.Message):
     chat_id = message.from_user.id
-    for i in range(len(ids_users)): 
-        if chat_id == ids_users[i]:
-            try:
-                if get_data(chat_id,'register') == 0: await backmarkup(chat_id,"Привет!")
-            except:
-                reg(chat_id)
-                await dp.send_message(chat_id, "Привет. Я - бот для группы 8-ого 'Б' класса. Я буду всегда помогать тебе. Но это не правда😁")
-                await dp.send_message(chat_id,"Напиши пожалалуйста свое реально имя, а то штраф 150(=")
-                send_data(chat_id, 'register', 0)
-                await Form_name.name.set()
+    try:
+        if get_data(chat_id,'register') == 1: await backmarkup(chat_id,"Привет!")
+    except:
+        reg(chat_id)
+        await dp.send_message(chat_id, "Привет. Я - бот для группы 8-ого 'Б' класса. Я буду всегда помогать тебе. Но это не правда😁")
+        await dp.send_message(chat_id,"Напиши пожалалуйста свое реально имя, а то штраф 150(=")
+        send_data(chat_id, 'register', 1)
+        await Form_name.name.set()
                 
 async def Регистрация(message: types.Message, state: FSMContext):
     chat_id = message.from_user.id

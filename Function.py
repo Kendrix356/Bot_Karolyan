@@ -17,27 +17,27 @@ def is_even(number):
     return number % 0.1 == 0
 
 def buizness_zarp():
-    for i in ids_users:
+    for i in range(100):
         have_buizness = get_data(i, 'buizness')
         if have_buizness != 0:
             if have_buizness == 1: pay = 20
             elif have_buizness == 2: pay = 35
-            send_data(i,'balance',get_data(i,'balance')+pay)
-            send_data(i,'buster', 0)
+            try:
+                Id = get_data(i, 'user_id', 'id')
+                send_data(Id,'balance',get_data(Id,'balance')+pay)
+                send_data(Id,'buster', 0)
+            except: pass
 
 def run_buizness_and_crpts():
-    schedule.every().hour.do(buizness_zarp) 
+    schedule.every().minute.do(buizness_zarp) 
     while True: 
         schedule.run_pending() 
         time.sleep(1)
 
-def send_data(id, column, data_edit, table = 1):
+def send_data(id, column, data_edit):
     conn = sqlite3.connect("us.db", check_same_thread=False)
     cursor = conn.cursor()
-    if table == 1:
-        select_wh_user_id = f"""Update users set {column} = ? where user_id = ?"""
-    elif table == 2:
-        select_wh_user_id = f"""Update Doms_and_kv set {column} = ? where name = ?"""
+    select_wh_user_id = f"""Update users set {column} = ? where user_id = ?"""
     data = (data_edit, id)
     # print(select_wh_user_id)
     # print(data)
@@ -45,30 +45,19 @@ def send_data(id, column, data_edit, table = 1):
     conn.commit()
     cursor.close()
 
-def get_data(id, column, table = 1):
+def get_data(id, column, getform = "user_id"):
     global data
     conn = sqlite3.connect("us.db", check_same_thread=False)
     cursor = conn.cursor()
-    if table == 1:
-        select_wh_user_id = """select * FROM users where user_id = ?"""
-        cursor.execute(select_wh_user_id, (id,))
-        send_data = cursor.fetchall()
-        for i in range(len(Table_users)):
-            if (column == Table_users[i]):
-                # print(Table[i])
-                for row in send_data:
-                    data = row[i]
-                # print(data)
-    elif table == 2:
-        select_wh_user_id = """select * FROM Doms_and_kv where name = ?"""
-        cursor.execute(select_wh_user_id, (id,))
-        send_data = cursor.fetchall()
-        for i in range(len(Table_dom_and_kv)):
-            if (column == Table_dom_and_kv[i]):
-                # print(Table[i])
-                for row in send_data:
-                    data = row[i]
-                # print(data)
+    select_wh_user_id = f"""select * FROM users where {getform} = ?"""
+    cursor.execute(select_wh_user_id, (id,))
+    send_data = cursor.fetchall()
+    for i in range(len(Table_users)):
+        if (column == Table_users[i]):
+            # print(Table[i])
+            for row in send_data:
+                data = row[i]
+            # print(data)
     conn.commit()
     cursor.close()
     return data
@@ -76,7 +65,7 @@ def get_data(id, column, table = 1):
 def reg(user_id):
     conn = sqlite3.connect('us.db')
     cursor = conn.cursor()
-    cursor.execute(f"INSERT INTO `users` (`user_id`,`name`,`balance`,`love`,`join_data`,`promo1`,`promo2`,`promo3`,`register`,`location`,`buizness`,`inventory`,`buster`,`status`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (user_id, "None", 500, 1, datetime.datetime.now(), 0, 0, 0, 1, "7Б",0,"0.0.0.0.0.0.0.0",0,1))
+    cursor.execute(f"INSERT INTO `users` (`user_id`,`name`,`balance`,`love`,`join_data`,`promo1`,`promo2`,`promo3`,`register`,`location`,`buizness`,`inventory`,`buster`,`status`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (user_id, "None", 500, 1, datetime.datetime.now(), 0, 0, 0, 0, "7Б",0,"0.0.0.0.0.0.0.0",0,1))
     conn.commit()
 
 def generate_translate():
@@ -152,3 +141,15 @@ async def backmarkup(chat_id, mess):
     if location == 'Столица': await dp.send_message(chat_id, mess, reply_markup=kb_menu_st)
     elif location == 'Верхний город' or location == 'Нижний город': await dp.send_message(chat_id, mess, reply_markup=kb_menu_gr)
     else: await dp.send_message(chat_id, mess, reply_markup=kb_menu)
+
+def custom_sort(arr):
+    count_dict = {}
+    for num in arr:
+        count_dict[num] = count_dict.get(num, 0) + 1
+    has_duplicates = any(count > 1 for count in count_dict.values())
+    if not has_duplicates:
+        return arr
+    def custom_key_func(element):
+        return (-count_dict.get(element, 0), element)
+    sorted_arr = sorted(arr, key=custom_key_func)
+    return sorted_arr
